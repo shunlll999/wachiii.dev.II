@@ -128,3 +128,9 @@ export interface TypewriterState {
   roleIndex: number;
   deleting: boolean;
 }
+
+export interface MetadataTagProps {
+  title?: string;
+  description?: string;
+  imageURL?: string;
+}

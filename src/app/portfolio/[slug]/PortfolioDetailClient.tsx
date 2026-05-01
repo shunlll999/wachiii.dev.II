@@ -7,8 +7,6 @@ import { getRelatedProjects } from "@/utils";
 import { notFound } from "next/navigation";
 import type { TagColor } from "@/types";
 
-import type { Project } from "@/types";
-
 const ACCENT_COLORS = ["#00ff88","#00e5ff","#aaff00","#00ff88"];
 
 function tagCls(c: TagColor) {
@@ -21,6 +19,8 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
   const { slug } = use(params);
   const project = projects.find(p => p.slug === slug);
   if (!project) notFound();
+
+  console.log('project', project.screenshots);
 
   const ref = useRef<HTMLDivElement>(null);
   const related = getRelatedProjects(projects, slug, 3);
@@ -37,7 +37,7 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
 
   return (
     <Fragment>
-<div className={s.page} ref={ref}>
+      <div className={s.page} ref={ref}>
         {/* ── Hero ── */}
         <header className={`${s.detailHero} gridBg scanline`}>
           <div className={s.detailTopBar} />
@@ -119,10 +119,11 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
                 <div className={`${s.subLabelLine} ${s.subLabelLineCyan}`} />
               </div>
               <div className={s.screenshotsGrid}>
-                {[1, 2].map(n => (
+                {(project.screenshots ?? []).map(n => (
                   <div key={n} className={s.screenshotPlaceholder}>
-                    <div className={s.screenshotLabel}>[SCREENSHOT_{n}]</div>
-                    <div className={s.screenshotSubLabel}>Replace with actual screenshots</div>
+                    {/* <div className={s.screenshotLabel}>[SCREENSHOT_{n}]</div> */}
+                    <img src={n} alt={`${project.title} screenshot`} className={s.screenshotImg} />
+                    {/* <div className={s.screenshotSubLabel}>Replace with actual screenshots</div> */}
                   </div>
                 ))}
               </div>

@@ -1,5 +1,10 @@
 import type { NavItem, SocialLink, HiddenProfile, TimelineEntry } from "@/types";
 
+export const SITE_URL = "https://wachiii-dev0.web.app";
+export const SITE_NAME = "wAcii — Senior Software Engineer";
+export const SITE_DESC = "Senior Software Engineer specializing in React, React Native, Flutter & Mobile. 15+ years building high-impact products.";
+export const OG_IMAGE = "https://wachiii-dev0.web.app/images/logo/screenshot.png";
+
 // ─────────────────────────────────────────────
 // Navigation
 // ─────────────────────────────────────────────
@@ -27,6 +32,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
 export const ASSETS = {
   logo:    "/images/logo/wachiii.png",
   favicon: "/images/logo/wachiii-fav.ico",
+  apple: "/images/logo/wachiii-fav.png",
   avatar:  "/images/avatars/wachii.jpg",
 } as const;
 

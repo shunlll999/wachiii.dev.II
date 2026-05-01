@@ -1,3 +1,4 @@
+import { OG_IMAGE } from "@/constants";
 import type { Project } from "@/types";
 
 export const projects: Project[] = [
@@ -16,7 +17,10 @@ export const projects: Project[] = [
     year: "2022",
     color: "#f97316",
     gradient: "from-orange/20 to-orange/5",
-    featured: true
+    featured: true,
+    screenshots: [OG_IMAGE, OG_IMAGE],
+    liveUrl: "https://wachiii.web.app/",
+    repoUrl: "https://github.com/example/logistics-dashboard"
   },
   {
     id: "02",
@@ -33,7 +37,10 @@ export const projects: Project[] = [
     year: "2021",
     color: "#a855f7",
     gradient: "from-purple/20 to-purple/5",
-    featured: true
+    featured: true,
+    screenshots: [OG_IMAGE, OG_IMAGE],
+    liveUrl: "https://wachiii.web.app/",
+    repoUrl: "https://github.com/example/logistics-dashboard"
   },
   {
     id: "03",
@@ -50,7 +57,10 @@ export const projects: Project[] = [
     year: "2023",
     color: "#22c55e",
     gradient: "from-green/20 to-green/5",
-    featured: true
+    featured: true,
+    screenshots: [OG_IMAGE, OG_IMAGE],
+    liveUrl: "https://wachiii.web.app/",
+    repoUrl: "https://github.com/example/logistics-dashboard"
   },
   {
     id: "04",
@@ -67,7 +77,10 @@ export const projects: Project[] = [
     year: "2020",
     color: "#f97316",
     gradient: "from-orange/20 to-orange/5",
-    featured: false
+    featured: false,
+    screenshots: ["https://static0.anpoimages.com/wordpress/wp-content/uploads/2016/11/nexus2cee_lenovo-smartphone-phab-2-pro-augmented-reality-gaming-phantom.jpg?w=1200&h=628&fit=crop", OG_IMAGE],
+    liveUrl: "https://wachiii.web.app/",
+    repoUrl: "https://github.com/example/ar-mobile-game"
   },
   {
     id: "05",
@@ -84,7 +97,10 @@ export const projects: Project[] = [
     year: "2022",
     color: "#22c55e",
     gradient: "from-green/20 to-green/5",
-    featured: false
+    featured: false,
+    screenshots: [OG_IMAGE, OG_IMAGE],
+    liveUrl: "https://wachiii.web.app",
+    repoUrl: "https://github.com/example/healthcare-app"
   },
   {
     id: "06",
@@ -101,6 +117,9 @@ export const projects: Project[] = [
     year: "2023",
     color: "#a855f7",
     gradient: "from-purple/20 to-purple/5",
-    featured: false
+    featured: false,
+    screenshots: [OG_IMAGE, OG_IMAGE],
+    liveUrl: "https://wachiii.web.app",
+    repoUrl: "https://github.com/example/saas-project-tool"
   }
 ];

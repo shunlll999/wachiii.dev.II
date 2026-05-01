@@ -4,11 +4,8 @@ import Navbar from "@/components/sections/Navbar";
 import CustomCursor from "@/components/ui/CustomCursor";
 import EasterEggProfile from "@/components/ui/EasterEggProfile";
 import { DemoBadge } from "@/components/ui/DemoBadge";
-
-const SITE_URL = "https://wachiii-dev0.web.app";
-const SITE_NAME = "wAcii — Senior Software Engineer";
-const SITE_DESC = "Senior Software Engineer specializing in React, React Native, Flutter & Mobile. 15+ years building high-impact products.";
-const OG_IMAGE = "https://wachiii-dev0.web.app/images/logo/screenshot.png";
+import { OG_IMAGE, SITE_DESC, SITE_NAME, SITE_URL } from "@/constants";
+import { Metadata as MetaDataTag } from "@/components/ui/Metadata";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -58,14 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:description" content={SITE_DESC} />
-        <meta property="og:title" content={SITE_NAME} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={SITE_NAME} />
-        <meta name="twitter:description" content={SITE_DESC} />
-        <meta name="twitter:image" content={OG_IMAGE} />
+        <MetaDataTag />
       </head>
       <body className="noise">
         <DemoBadge />

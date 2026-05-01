@@ -11,6 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
+
   if (!project) return {};
 
   const title = project.title;
@@ -25,10 +26,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       url,
       type: "article",
+      images: [
+        {
+          url: project.screenshots ? project.screenshots[0] : "https://wachiii-dev0.web.app/images/logo/screenshot.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       title: `${title} | wAcii`,
       description,
+      images: [
+        {
+          url: project.screenshots ? project.screenshots[0] : "https://wachiii-dev0.web.app/images/logo/screenshot.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
   };
 }

@@ -386,7 +386,7 @@
 .screenshotsGrid { display: grid; gap: 16px; }
 @media (min-width: 768px) { .screenshotsGrid { grid-template-columns: 1fr 1fr; } }
 .screenshotPlaceholder {
-  aspect-ratio: 16/9;
+  /* aspect-ratio: 16/9; */
   background: var(--ink);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -398,6 +398,13 @@
 }
 .screenshotLabel    { font-family: var(--font-mono); font-size: 12px; color: rgba(0,255,136,0.3); }
 .screenshotSubLabel { font-family: var(--font-mono); font-size: 10px; color: rgba(61,90,71,0.3); }
+
+.screenshotImg {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
 
 /* CTA box */
 .ctaBox {
