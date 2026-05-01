@@ -6,7 +6,6 @@ import { projects } from "@/data/projects";
 import { getRelatedProjects } from "@/utils";
 import { notFound } from "next/navigation";
 import type { TagColor } from "@/types";
-import Metadata from "@/components/ui/Metadata";
 
 import type { Project } from "@/types";
 
@@ -38,8 +37,7 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
 
   return (
     <Fragment>
-      <Metadata seoTitle={`wAcii - ${project.title}`} seoDescription={project.longDescription} />
-      <div className={s.page} ref={ref}>
+<div className={s.page} ref={ref}>
         {/* ── Hero ── */}
         <header className={`${s.detailHero} gridBg scanline`}>
           <div className={s.detailTopBar} />

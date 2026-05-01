@@ -25,9 +25,9 @@ export const SOCIAL_LINKS: SocialLink[] = [
 // Asset URLs
 // ─────────────────────────────────────────────
 export const ASSETS = {
-  logo:    "images/logo/wachiii.png",
-  favicon: "images/logo/wachiii-fav.ico",
-  avatar:  "images/avatars/wachii.jpg",
+  logo:    "/images/logo/wachiii.png",
+  favicon: "/images/logo/wachiii-fav.ico",
+  avatar:  "/images/avatars/wachii.jpg",
 } as const;
 
 // ─────────────────────────────────────────────

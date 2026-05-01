@@ -5,7 +5,6 @@ import s from "@/styles/portfolio.module.css";
 import { projects } from "@/data/projects";
 import { filterProjectsByTag } from "@/utils";
 import type { TagColor } from "@/types";
-import Metadata from "@/components/ui/Metadata";
 
 const FILTERS = ["ALL", "React Native", "Flutter", "React", "Unity", "Next.js"];
 
@@ -33,9 +32,6 @@ export default function PortfolioPage() {
 
   return (
     <div>
-      <head>
-        <Metadata seoTitle="wAcii - Portfolio" seoDescription="Senior Software Engineer specializing in React, React Native, Flutter & Mobile. 15+ years building products." />
-      </head>
       <div className={`${s.page} gridBg`} ref={ref}>
 
         {/* Header */}
