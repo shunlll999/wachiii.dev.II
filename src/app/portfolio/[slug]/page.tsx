@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       images: [
         {
-          url: project.screenshots ? project.screenshots[0] : "https://wachiii-dev0.web.app/images/logo/screenshot.png",
+          url: project.screenshots?.[0] || "https://wachiii-dev0.web.app/images/logo/screenshot.png",
           width: 1200,
           height: 630,
           alt: title,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       images: [
         {
-          url: project.screenshots ? project.screenshots[0] : "https://wachiii-dev0.web.app/images/logo/screenshot.png",
+          url: project.screenshots?.[0] || "https://wachiii-dev0.web.app/images/logo/screenshot.png",
           width: 1200,
           height: 630,
           alt: title,
