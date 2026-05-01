@@ -25,9 +25,9 @@ export const SOCIAL_LINKS: SocialLink[] = [
 // Asset URLs
 // ─────────────────────────────────────────────
 export const ASSETS = {
-  logo:    "https://wachiii-dev0.web.app/assets/images/logo/wachiii.png",
-  favicon: "https://wachiii-dev0.web.app/assets/images/logo/wachiii-fav.ico",
-  avatar:  "https://wachiii-dev0.web.app/assets/images/avatars/avatar2.jpg",
+  logo:    "images/logo/wachiii.png",
+  favicon: "images/logo/wachiii-fav.ico",
+  avatar:  "images/avatars/wachii.jpg",
 } as const;
 
 // ─────────────────────────────────────────────
@@ -49,7 +49,8 @@ export const HIDDEN_PROFILE: HiddenProfile = {
 // Working timeline (full history)
 // ─────────────────────────────────────────────
 export const TIMELINE: TimelineEntry[] = [
-  { year: "2018 - PRESENT",   company: "MOHARA BKK",              role: "SENIOR SOFTWARE ENGINEER",  current: true  },
+  { year: "2024 - PRESENT",   company: "ttb Spark",                role: "SOFTWARE ENGINEER SPECIALIST",  current: true  },
+  { year: "2018 - 2024",      company: "MOHARA BKK",               role: "SENIOR SOFTWARE ENGINEER",  current: false  },
   { year: "2016 - 2017",      company: "NIMBLE",                   role: "FRONT END ENGINEER",        current: false },
   { year: "2015 - 2016",      company: "NADIA THAILAND",           role: "JAVASCRIPT DEVELOPER",      current: false },
   { year: "2015.1 - 2015.1",  company: "HAPPY FRESH",              role: "",                          current: false },

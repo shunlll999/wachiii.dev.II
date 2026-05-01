@@ -1,0 +1,12 @@
+.demoBadge {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100px;
+  background-color: #8a1f1f;
+  color: #ffffff;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 9999;
+}
