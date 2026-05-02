@@ -29,6 +29,11 @@
   --acid:      #aaff00;
   --magenta:   #ff00aa;
 
+  /* UI Border */
+  --border-input:    rgba(0,255,136,0.25);
+  --input-background:   rgba(0,255,136,0.05);
+  --hidden-feature:     rgb(255, 119, 0);
+
   /* Typography */
   --font-display: 'Orbitron', sans-serif;
   --font-body:    'Rajdhani', sans-serif;
@@ -108,7 +113,7 @@ img, svg { display: block; }
   pointer-events: none;
   z-index: var(--z-cursor);
   box-shadow: 0 0 8px var(--neon), 0 0 16px var(--neon);
-   display: none;
+  display: none;
 }
 .cursorRing {
   position: fixed;
@@ -118,7 +123,7 @@ img, svg { display: block; }
   border-radius: 50%;
   pointer-events: none;
   z-index: calc(var(--z-cursor) - 1);
-  transition: all 0.002s ease;
+  transition: all 0.12s ease;
   opacity: 0.5;
   display: none;
 }

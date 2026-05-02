@@ -1,8 +1,11 @@
 "use client";
-import { useState } from "react";
+import { ChangeEvent, use, useState } from "react";
 import Image from "next/image";
 import s from "@/styles/sections.module.css";
 import { HIDDEN_PROFILE } from "@/constants";
+import { User } from "firebase/auth";
+import { login } from "@/services/firebase";
+import { useRouter } from "next/navigation";
 
 type Listener = (open: boolean) => void;
 const listeners = new Set<Listener>();
@@ -13,7 +16,25 @@ export function triggerEasterEgg() {
 
 export default function EasterEggProfile() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const router = useRouter();
   if (typeof window !== "undefined") listeners.add(setOpen);
+
+  async function handleLogin(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const target = e.target as HTMLFormElement & { email: HTMLInputElement; password: HTMLInputElement };
+    const email = target.email.value;
+    const password = target.password.value;
+
+    const user: User = await login(email, password);
+    if (user.uid) {
+      setOpen(false);
+      router.push("/dashboard");
+    }
+  }
+
+
   if (!open) return null;
 
   return (
@@ -56,7 +77,22 @@ export default function EasterEggProfile() {
               ))}
             </div>
             <p className={s.cardNote}>CLICK_LOGO :: TO_REVEAL</p>
+            <button className={s.hiddenFeatureDot} onClick={() => setShowForm(!showForm)} />
           </div>
+          <form className={s.cardForm} onSubmit={handleLogin}>
+            <div className={`${s.formWrapper} ${showForm ? s.show : ''}`}>
+              <span className={s.formTitle}>// wAciii LOGIN</span>
+              <div className={s.inputGroup}>
+                <label htmlFor="email" className={s.cardInputLabel}>// EMAIL</label>
+                <input id="email" type="text" placeholder="Enter Email" className={s.cardInput} />
+              </div>
+              <div className={s.inputGroup}>
+                <label htmlFor="password" className={s.cardInputLabel}>// PASSWORD</label>
+                <input id="password" type="password" placeholder="Enter password" className={s.cardInput} />
+              </div>
+              <button type="submit" className={s.cardSubmit}>SUBMIT</button>
+            </div>
+          </form>
           <div className={s.cardBottomBar} />
         </div>
       </div>

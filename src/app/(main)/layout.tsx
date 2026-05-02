@@ -1,3 +1,5 @@
+// ── Firebase (ต้อง init ก่อน component ใดๆ) ──────────────────────────
+import '@/services/firebase'; // Initialize Firebase app
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import Navbar from "@/components/sections/Navbar";
