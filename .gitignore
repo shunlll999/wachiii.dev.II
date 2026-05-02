@@ -18,3 +18,5 @@ coverage
 .firebase/
 firebase.json
 .firebaserc
+.claude
+.Claude
