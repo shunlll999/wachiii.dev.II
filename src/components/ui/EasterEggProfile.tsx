@@ -29,7 +29,7 @@ export default function EasterEggProfile() {
 
     const user: User = await login(email, password);
     if (user.uid) {
-      setOpen(false);
+      setOpen(false)
       router.push("/dashboard");
     }
   }
