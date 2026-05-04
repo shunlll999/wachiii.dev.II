@@ -16,7 +16,6 @@ const Page = () => {
   useEffect(() => {
     getPortfolio(id as string);
   }, [id])
-  console.log(portfolio)
 
   if (!portfolio) return null;
 
