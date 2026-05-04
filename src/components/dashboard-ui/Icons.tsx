@@ -75,6 +75,31 @@ export const IconMenu = ({ size = 14, stroke = 'currentColor' }: IconProps) => (
   </svg>
 )
 
+export const IconPortfolio = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <rect x="1" y="4" width="14" height="10" rx="1.5" />
+    <path d="M5 4V3a2 2 0 014 0v1" />
+    <line x1="1" y1="8" x2="15" y2="8" />
+  </svg>
+)
+
+export const IconEdit = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <path d="M11 2l3 3-8 8H3v-3l8-8z" />
+    <line x1="9" y1="4" x2="12" y2="7" />
+  </svg>
+)
+
+export const IconDelete = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <polyline points="2,4 14,4" />
+    <path d="M5 4V2h6v2" />
+    <path d="M3 4l1 10a1 1 0 001 1h6a1 1 0 001-1l1-10" />
+    <line x1="6" y1="7" x2="6" y2="11" />
+    <line x1="10" y1="7" x2="10" y2="11" />
+  </svg>
+)
+
 export const IconLogout = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
   <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
     <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3" />

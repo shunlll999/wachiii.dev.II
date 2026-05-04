@@ -1,5 +1,8 @@
 // ─────────────────────────────────────────────
 // Primitive aliases
+
+import { DocumentReference } from "firebase/firestore";
+
 // ─────────────────────────────────────────────
 export type TagColor    = "orange" | "purple" | "green";
 export type AccentColor = "neon" | "cyan" | "acid" | "magenta";
@@ -29,6 +32,19 @@ export interface Project {
   screenshots?: string[];
   liveUrl?: string;
   repoUrl?: string;
+}
+
+export interface Portfolio {
+  name: string;
+  id: string;
+  describe: string;
+  photo_url: string;
+  product_year: string;
+  type: string;
+  viewed: number;
+  product_info?: {
+    [key: string]: string | number
+  };
 }
 
 // ─────────────────────────────────────────────

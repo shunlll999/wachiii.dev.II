@@ -2,13 +2,33 @@ import React, { useState } from 'react'
 import { Sidebar } from './Sidebar'
 import { Topbar } from './Topbar'
 import { DashboardLayoutProps } from './types'
+import { useRouter } from 'next/navigation'
+
+type NavItem = {
+  [K in string]: string;
+};
+
+const NAVIGATES: NavItem = {
+  overview: '/console/overview', // 'Overview',
+  analytics: '/console/analytics', // 'Analytics',
+  settings: '/console/settings', // 'Settings',
+  projects: '/console/projects', // 'Projects',
+  portfolios: '/console/portfolio', // 'Portfolios',
+} as const
 
 export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
   children,
   user = { name: 'wachiii', role: 'developer' },
+  param
 }) => {
+  const router = useRouter()
   const [collapsed, setCollapsed] = useState(false)
   const [activeItem, setActiveItem] = useState('overview')
+
+  const actionNavigate = (id: string) => {
+    setActiveItem(id)
+    router.push(NAVIGATES[id])
+  }
 
   return (
     <>
@@ -40,8 +60,9 @@ export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
         }
         .dashboard-content {
           flex: 1;
-          padding: 24px;
           overflow: auto;
+          height: calc(100vh - 52px);
+          padding: 24px;
         }
       `}</style>
 
@@ -50,7 +71,7 @@ export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
         <Sidebar
           collapsed={collapsed}
           activeItem={activeItem}
-          onItemClick={setActiveItem}
+          onItemClick={actionNavigate}
           user={user}
         />
 
@@ -59,12 +80,15 @@ export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
             onToggleSidebar={() => setCollapsed((c) => !c)}
             breadcrumb={[
               { label: 'dashboard' },
-              { label: activeItem, active: true },
+              { label: activeItem, active: !param || false },
+              ...(param ? [{ label: param.name, active: true }] : [])
             ]}
           />
 
-          <main className="dashboard-content">
+          <main>
+            <div className="dashboard-content">
             {children}
+            </div>
           </main>
         </div>
       </div>

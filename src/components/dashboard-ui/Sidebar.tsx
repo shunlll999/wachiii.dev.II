@@ -2,6 +2,7 @@ import React from 'react'
 import {
   IconGrid, IconChart, IconStar,
   IconUser, IconCard, IconSettings,
+  IconPortfolio,
 } from './Icons'
 
 interface SidebarProps {
@@ -30,6 +31,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: 'overview', label: 'overview', icon: <IconGrid /> },
       { id: 'analytics', label: 'analytics', icon: <IconChart /> },
       { id: 'projects', label: 'projects', icon: <IconStar />, badge: 3 },
+      { id: 'portfolios', label: 'portfolios', icon: <IconPortfolio /> },
     ],
   },
   {
@@ -52,6 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onItemClick,
   user = { name: 'wachiii', role: 'developer' },
 }) => {
+
   return (
     <div
       style={{

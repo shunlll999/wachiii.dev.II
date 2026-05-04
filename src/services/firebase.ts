@@ -4,7 +4,8 @@ import { getAnalytics, type Analytics } from 'firebase/analytics';
 import { getAuth, signOut, User } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, query, where, getDocs, getFirestore } from 'firebase/firestore'
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
+
 
 // Must use literal access (not process.env[key]) so Next.js can inline NEXT_PUBLIC_ vars in the client bundle
 const firebaseConfig = {
@@ -18,9 +19,10 @@ const firebaseConfig = {
 };
 
 // Register
-export async function register(email: string, password: string) {
+export async function register(email: string, password: string, role = 'user') {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  console.log("User:", userCredential.user);
+  const { uid } = userCredential.user;
+  await setDoc(doc(db, 'users', uid), { uid, email, role });
 }
 
 // Login
@@ -36,16 +38,9 @@ export const logout = async (callback: () => void) => {
 
 
 export const getUserByUid = async (uid: string) => {
-  const q = query(
-    collection(db, 'users'),
-    where('uid', '==', uid)
-  )
-
-  const snapshot = await getDocs(q)
-  if (snapshot.empty) return null
-
-  const doc = snapshot.docs[0]
-  return { id: doc.id, ...doc.data() }
+  const snap = await getDoc(doc(db, 'users', uid))
+  if (!snap.exists()) return null
+  return { id: snap.id, ...snap.data() }
 }
 
 // Initialize Firebase

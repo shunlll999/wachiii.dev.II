@@ -1,3 +1,5 @@
+import { Portfolio } from "@/types"
+
 export interface NavItem {
   id: string
   label: string
@@ -12,5 +14,6 @@ export interface DashboardLayoutProps {
     name: string
     role: string
     avatar?: string
-  }
+  },
+  param?: Portfolio | null
 }

@@ -1,0 +1,243 @@
+.tableWraper {
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.tableHeader {
+  font-weight: bold;
+  text-align: left;
+}
+
+.tableHeaderCell {
+  color: #413f3f;
+  font-weight: bold;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dfdfdf;
+  border-right: none;
+  background-color: rgba(146, 186, 213, 0.553);
+}
+
+.tableCell {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dfdfdf;
+  border-top: none;
+  border-right: none;
+}
+
+.tableCell.name {
+  min-width: 150px;
+}
+
+.tableCell.viewed, .tableCell.type, .tableCell.url {
+  text-align: center;
+}
+
+.mod {
+  background-color: rgba(172, 188, 198, 0.185);
+}
+
+.even {
+  background-color: rgba(220, 234, 243, 0.17);
+}
+
+.tableCell:last-child {
+  border-right: 1px solid #dfdfdf;
+}
+
+.tableCell > .action {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.actionButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  border: 1px solid rgb(226, 228, 233);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: rgb(107, 114, 128);
+}
+
+.tableFilterCell {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #dfdfdf;
+  border-right: none;
+  border-top: none;
+  background-color: rgba(220, 234, 243, 0.35);
+}
+
+.filterInput {
+  width: 100%;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid #dfdfdf7e;
+  border-radius: 4px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.511);
+  outline: none;
+  box-sizing: border-box;
+  color: #413f3f;
+}
+
+.filterInput::placeholder {
+  color: #c5c5c5;
+}
+
+.filterInput:focus {
+  border-color: rgba(146, 186, 213, 0.8);
+}
+
+/** --------------------------------------------------
+ * Portfolio Detail
+ ** --------------------------------------------------*/
+
+ .detail-migrate > .title {
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background-color: #c5c5c5;
+  padding: 0.5rem;
+ }
+
+ .formWrapper > .title {
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background-color: rgb(37, 99, 235);;
+  padding: 0.5rem;
+  color: white;
+ }
+
+.detail-migrate > .info {
+  margin-top: 1rem;
+ }
+
+ .detail-migrate {
+  --border-color: rgba(208, 208, 208, 0.3);
+  --border:    #1a2535;
+  --radius-sm: 6px;
+  --input-background: rgba(0, 195, 255, 0.079);
+   --snow:      #033d12;
+
+  background-color: rgba(208, 208, 208, 0.2);
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+ }
+
+ .detail-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+ }
+
+ .detail-section > label {
+  min-width: 80px;
+  color: rgb(61, 56, 56);
+  font-weight: bold;
+  font-size: 12px;
+ }
+
+.detail-section > .value {
+  display: flex;
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  color: rgb(95, 93, 93);
+  font-weight: bold;
+  font-size: 12px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+ }
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+.formGroupView {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+.formGroupLabel {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.formGroupLabel > input {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.formGroupLabel > input:not(:checked) {
+  height: 40px;
+  padding: 0 0.5rem;
+  outline: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--input-background);
+  color: var(--snow);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.formGroupLabel > div > input[type="checkbox"] {
+  height: 20px;
+  width: 20px;
+  padding: 0 0.5rem;
+  outline: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--input-background);
+  color: var(--snow);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.labelView {
+  min-width: 120px;
+  color: rgb(61, 56, 56);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.error {
+  color: rgb(144, 42, 42);
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: 140px;
+}
+
+.buttonSubmit {
+  padding: 0 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonSubmit > button {
+  width: 150px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(37, 99, 235);
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
