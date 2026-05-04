@@ -2,6 +2,7 @@
 import { IconDelete, IconEdit } from "@/components/dashboard-ui/Icons";
 import { useProducts } from "@/hooks/useProducts";
 import s from '@/styles/dashboard/Portfolio.module.css'
+import ds from '@/styles/dashboard/Documents.module.css'
 import { Portfolio } from "@/types";
 import { useRouter } from "next/navigation";
 import { useState, useMemo } from "react";
@@ -21,7 +22,7 @@ const PortfolioCollection = () => {
   };
 
   const handleEdit = (id: string) => {
-    router.push(`/console/portfolio/${id}`);
+    router.push(`/console/portfolio/detail?pid=${id}`);
   }
 
   const filtered = useMemo(() => {
@@ -40,6 +41,9 @@ const PortfolioCollection = () => {
 
   return (
     <div>
+      <div className={ds.toolbar}>
+        <button className={ds.createButton} onClick={() => console.log("create")}>+ Create</button>
+      </div>
       <table className={s.tableWraper}>
         <thead className={s.tableHeader}>
           <tr>

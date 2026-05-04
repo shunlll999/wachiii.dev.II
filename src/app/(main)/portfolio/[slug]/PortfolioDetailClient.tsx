@@ -20,8 +20,6 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
   const project = projects.find(p => p.slug === slug);
   if (!project) notFound();
 
-  console.log('project', project.screenshots);
-
   const ref = useRef<HTMLDivElement>(null);
   const related = getRelatedProjects(projects, slug, 3);
 

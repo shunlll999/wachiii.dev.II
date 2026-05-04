@@ -107,3 +107,37 @@ export const IconLogout = ({ size = 16, stroke = 'currentColor' }: IconProps) =>
     <line x1="14" y1="8" x2="5" y2="8" />
   </svg>
 )
+
+export const IconDocument = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <path d="M9 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V6L9 1z" />
+    <polyline points="9,1 9,6 14,6" />
+    <line x1="5" y1="9" x2="11" y2="9" />
+    <line x1="5" y1="12" x2="9" y2="12" />
+  </svg>
+)
+
+export const IconMedia = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <rect x="1" y="3" width="14" height="10" rx="1.5" />
+    <polygon points="6,6 6,10 11,8" />
+  </svg>
+)
+
+export const IconTag = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <path d="M1 1h6l7 7a1.5 1.5 0 010 2.1l-4 4a1.5 1.5 0 01-2.1 0L1 7V1z" />
+    <circle cx="4.5" cy="4.5" r="1" fill={stroke} stroke="none" />
+  </svg>
+)
+
+export const IconImpact = ({ size = 16, stroke = 'currentColor' }: IconProps) => (
+  <svg {...s(size, stroke)} viewBox="0 0 16 16" fill="none" stroke={stroke} strokeWidth={1.5}>
+    <circle cx="8" cy="8" r="6" />
+    <circle cx="8" cy="8" r="3" />
+    <line x1="8" y1="1" x2="8" y2="3" />
+    <line x1="8" y1="13" x2="8" y2="15" />
+    <line x1="1" y1="8" x2="3" y2="8" />
+    <line x1="13" y1="8" x2="15" y2="8" />
+  </svg>
+)

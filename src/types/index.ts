@@ -122,6 +122,61 @@ export interface HiddenProfile {
 }
 
 // ─────────────────────────────────────────────
+// Document
+// ─────────────────────────────────────────────
+export interface Document {
+  id: string;
+  title: string;
+  role: string;
+  type: string;
+  url: string;
+  description: string;
+  created_at: string;
+}
+
+// ─────────────────────────────────────────────
+// Tag
+// ─────────────────────────────────────────────
+
+export interface Tag {
+  id: string;
+  value: string;
+  color: TagColor;
+  created_at?: number;
+}
+
+// ─────────────────────────────────────────────
+// Impact
+// ─────────────────────────────────────────────
+
+export interface Impact {
+  id?: string;
+  impactList: string[];
+  create_at: number;
+}
+
+
+// ─────────────────────────────────────────────
+// Media Metadata
+// ─────────────────────────────────────────────
+
+export interface MediaMetadata {
+  name: string;
+  width: number;
+  height: number;
+  size: string;
+  type: string;
+  lastModified: string;
+  alt: string;
+  dimensions: string;
+  file: File;
+  downloadURL?: string;
+}
+// export interface Impact {
+//   value: string;
+// }
+
+// ─────────────────────────────────────────────
 // Navigation
 // ─────────────────────────────────────────────
 export interface NavItem {

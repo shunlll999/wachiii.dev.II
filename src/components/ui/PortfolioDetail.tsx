@@ -1,21 +1,22 @@
 'use client'
 import s from '@/styles/dashboard/Portfolio.module.css'
-import { Portfolio, Project } from '@/types'
+import ds from '@/styles/dashboard/Documents.module.css'
+import { Impact, Portfolio, Project, Tag } from '@/types'
 import { addProject } from '@/services/firebaseCollection'
 import { useState } from 'react'
 import type { SyntheticEvent, ReactElement } from 'react'
 
-type FieldType = 'string' | 'string[]' | 'enum' | 'boolean';
+type FieldType = 'string' | 'string[]' | 'enum' | 'boolean' | 'tags[]' | 'impacts[]';
 
 const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'title', type: 'string', required: true },
   { name: 'slug', type: 'string', required: true },
   { name: 'category', type: 'string', required: true },
-  { name: 'tags', type: 'string[]', required: true },
+  { name: 'tags', type: 'tags[]', required: true },
   { name: 'tagColor', type: 'enum', required: true },
   { name: 'description', type: 'string', required: true },
   { name: 'longDescription', type: 'string', required: true },
-  { name: 'impact', type: 'string[]', required: true },
+  { name: 'impact', type: 'impacts[]', required: true },
   { name: 'challenge', type: 'string', required: true },
   { name: 'solution', type: 'string', required: true },
   { name: 'year', type: 'string', required: true },
@@ -27,7 +28,11 @@ const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'repoUrl', type: 'string', required: false },
 ]
 
-const fieldInputMap: Record<FieldType, (name: string) => ReactElement> = {
+const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, tags: Tag[], impacts: Impact[] }) => {
+  const { product_info, ...rest } = portfolio;
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const fieldInputMap: Record<FieldType, (name: string) => ReactElement> = {
   'string': (name) => (
     <input type="text" id={name} name={name} />
   ),
@@ -40,11 +45,24 @@ const fieldInputMap: Record<FieldType, (name: string) => ReactElement> = {
   'boolean': (name) => (
     <div><input type="checkbox" id={name} name={name} /></div>
   ),
+  'tags[]': (name) => (
+    <select id={name} name={name} className={ds.select}>
+      <option value="">Select tags</option>
+      {tags.map((tag) => (
+        <option key={tag.id} value={tag.value}>{tag.value}</option>
+      ))}
+    </select>
+  ),
+  'impacts[]': (name) => (
+    <select id={name} name={name} className={ds.select}>
+      <option value="">Select impact</option>
+      {impacts.map((impact) => (
+        <option key={impact.id} value={impact.impactList}>{impact.impactList.map((im) => im).join(', ')}</option>
+      ))}
+    </select>
+  ),
 };
 
-const PortfolioDetail = ({ portfolio }: { portfolio: Portfolio }) => {
-  const { product_info, ...rest } = portfolio;
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -128,7 +146,7 @@ const PortfolioDetail = ({ portfolio }: { portfolio: Portfolio }) => {
           ))}
           </div>
           <div className={s.buttonSubmit}>
-            <button type="submit">Submit</button>
+            <button type="submit">Update</button>
           </div>
         </form>
       </div>

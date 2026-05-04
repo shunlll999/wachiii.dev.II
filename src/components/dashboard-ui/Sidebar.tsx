@@ -3,6 +3,10 @@ import {
   IconGrid, IconChart, IconStar,
   IconUser, IconCard, IconSettings,
   IconPortfolio,
+  IconDocument,
+  IconTag,
+  IconImpact,
+  IconMedia,
 } from './Icons'
 
 interface SidebarProps {
@@ -30,6 +34,9 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: 'overview', label: 'overview', icon: <IconGrid /> },
       { id: 'analytics', label: 'analytics', icon: <IconChart /> },
+      { id: 'tags', label: 'tags', icon: <IconTag /> },
+      { id: 'impacts', label: 'impacts', icon: <IconImpact /> },
+      { id: 'media', label: 'media', icon: <IconMedia /> },
       { id: 'projects', label: 'projects', icon: <IconStar />, badge: 3 },
       { id: 'portfolios', label: 'portfolios', icon: <IconPortfolio /> },
     ],

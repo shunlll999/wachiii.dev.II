@@ -74,7 +74,7 @@
   background-color: rgba(220, 234, 243, 0.35);
 }
 
-.filterInput {
+.filterInput, .impactInput {
   width: 100%;
   padding: 0.25rem 0.4rem;
   border: 1px solid #dfdfdf7e;
@@ -84,6 +84,12 @@
   outline: none;
   box-sizing: border-box;
   color: #413f3f;
+}
+
+.impactInput {
+  margin: 0.5rem 0;
+  height: 40px;
+  padding: 0 0.5rem;
 }
 
 .filterInput::placeholder {
@@ -145,6 +151,7 @@
   color: rgb(61, 56, 56);
   font-weight: bold;
   font-size: 12px;
+  text-transform: capitalize;
  }
 
 .detail-section > .value {
@@ -184,6 +191,7 @@
   flex: 1;
   align-items: center;
   justify-content: flex-start;
+  text-transform: capitalize;
 }
 
 .formGroupLabel > input:not(:checked) {
@@ -216,6 +224,7 @@
   color: rgb(61, 56, 56);
   font-weight: bold;
   font-size: 12px;
+  text-transform: capitalize;
 }
 
 .error {
@@ -240,4 +249,56 @@
   color: white;
   font-weight: bold;
   font-size: 12px;
+}
+
+/** --------------------------------------------------
+ * Impact value set
+ ** --------------------------------------------------*/
+
+.impactList {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  color: rgb(95, 93, 93);
+  font-weight: bold;
+  font-size: 12px;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  gap: 0.5rem;
+  background-color: black;
+
+}
+
+.impactOverrideCell {
+  padding: 0;
+}
+
+.impactCell {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  color: rgb(95, 93, 93);
+  font-weight: bold;
+  font-size: 12px;
+  border: 1px solid rgb(105, 130, 185);
+  border-radius: 10px;
+
+}
+
+.impactTop {
+  --font-display: 'Orbitron', sans-serif;
+  color: rgb(0, 255, 136);
+  text-shadow: rgba(0, 255, 136, 0.376) 0px 0px 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.impactBottom {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #6b9e7a;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
 }

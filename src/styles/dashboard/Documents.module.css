@@ -1,0 +1,273 @@
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+.createButton {
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(37, 99, 235);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  width: 420px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: rgb(37, 99, 235);
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1rem;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: bold;
+  color: rgb(61, 56, 56);
+  margin-top: 0.35rem;
+}
+
+.input {
+  height: 36px;
+  padding: 0 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  outline: none;
+  color: #374151;
+}
+
+.input:focus {
+  border-color: rgba(37, 99, 235, 0.6);
+}
+
+.formFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.cancelButton {
+  padding: 0 1rem;
+  height: 34px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  color: #374151;
+}
+
+.submitButton {
+  padding: 0 1.25rem;
+  height: 34px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(37, 99, 235);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.select {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  outline: none;
+  color: #cfdef7;
+  background: #374151;
+
+  -webkit-appearance: none;  /* สำหรับ Chrome, Safari, Edge */
+  -moz-appearance: none;     /* สำหรับ Firefox */
+  appearance: none;          /* มาตรฐาน */
+
+  /* สำคัญมาก: เมื่อลบลูกศรแล้ว ต้องตั้งค่า padding-right
+     เผื่อพื้นที่ไว้ให้ไอคอนใหม่ที่เราจะใส่เข้าไปเองด้วย */
+  padding-right: 30px;
+
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  /* จัดตำแหน่งไอคอน: ขวา 10px, กึ่งกลางแนวตั้ง */
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.media-info-box {
+  display: block;
+  background-color: #374151;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  color: #e5e7eb;
+  font-size: 12px;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.media-info-input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.media-info-input > label {
+  min-width: 80px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.media-info-input > input {
+  height: 36px;
+  padding: 0 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  outline: none;
+  color: #cfdef7;
+  background: #374151;
+  flex: 1;
+}
+
+.media-info-input > input[name="alt"] {
+  height: 36px;
+  padding: 0 0.6rem;
+  border: 1px solid #0e9ec6;
+  border-radius: 4px;
+  font-size: 12px;
+  outline: none;
+  color: #0547ba;
+  background: #cdd9ec;
+  flex: 1;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.536);
+}
+
+.previewImage {
+  display: block;
+  margin-top: 0.5rem;
+  background-color: #c7ceda;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  color: #e5e7eb;
+  font-size: 12px;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.previewImage  > img {
+  width: 200px;
+  margin-top: 10px;
+  /* height: 200px; */
+  object-fit: cover;
+}
+
+.previewLabel {
+  display: block;
+  margin-top: 0.5rem;
+  background-color: #c7ceda;
+  color: #212631;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-justify: justify;
+}
+
+.upload-bar {
+  display: block;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+  color: #e5e7eb;
+  font-size: 12px;
+  gap: 0.5rem;
+}
+
+.uploadButton {
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(37, 99, 235);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 232px;
+}
+
+.mediaBox {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.media {
+  padding: 0.5rem;
+  background-color: #c7ceda;
+  border-radius: 4px;
+  color: #e5e7eb;
+  font-size: 12px;
+  gap: 0.5rem;
+}
+
+.imageNetwork {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.mediaName {
+  font-size: 9px;
+  color: #474748;
+  font-weight: bold;
+}

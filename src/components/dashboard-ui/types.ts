@@ -15,5 +15,5 @@ export interface DashboardLayoutProps {
     role: string
     avatar?: string
   },
-  param?: Portfolio | null
+  param?: string[] | null
 }

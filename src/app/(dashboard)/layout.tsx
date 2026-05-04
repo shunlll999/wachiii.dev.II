@@ -2,23 +2,17 @@
 
 import { DashboardViewLayout } from "@/components/dashboard-ui";
 import { useAuth } from "@/hooks/useAuth";
-import { useProducts } from "@/hooks/useProducts";
-import { useParams } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { loading, user: auth, error } = useAuth();
-  const { portfolio, getPortfolioById } = useProducts();
-  const { id } = useParams()
+  const pathname = usePathname();
   const user = useMemo(() => auth, [auth]);
+  const pathList = pathname.split('/').filter((p) => p !== '' && p !== 'console');
 
-  useEffect(() => {
-    if (id) {
-      getPortfolioById(id as string)
-    }
-  }, [id]);
 
-  console.log('portfolio', portfolio);
+  console.log('user', user);
 
   return (
     <html lang="en">
@@ -56,7 +50,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               alignItems: 'center',
               width: '100%',
             }} >Back to Home</a>
-          </div> : <DashboardViewLayout user={{ name: user?.email || 'Wachiii', role: user?.role || 'Developer' }} param={portfolio}>
+          </div> : <DashboardViewLayout user={{ name: user?.email || 'Wachiii', role: user?.role || 'Developer' }} param={pathList}>
               {loading ? <div>Loading...</div> : children}
             </DashboardViewLayout>}
           </main>

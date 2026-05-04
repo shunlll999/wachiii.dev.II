@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { act, useState } from 'react'
 import { Sidebar } from './Sidebar'
 import { Topbar } from './Topbar'
 import { DashboardLayoutProps } from './types'
@@ -14,6 +14,9 @@ const NAVIGATES: NavItem = {
   settings: '/console/settings', // 'Settings',
   projects: '/console/projects', // 'Projects',
   portfolios: '/console/portfolio', // 'Portfolios',
+  tags: '/console/tags', // 'Tags',
+  media: '/console/media', // 'Media',
+  impacts: '/console/impacts', // 'Impacts',
 } as const
 
 export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
@@ -29,6 +32,8 @@ export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
     setActiveItem(id)
     router.push(NAVIGATES[id])
   }
+
+  const pathName = param?.map((p, _) => ({ label: p, active: _ === param.length - 1 }));
 
   return (
     <>
@@ -80,8 +85,7 @@ export const DashboardViewLayout: React.FC<DashboardLayoutProps> = ({
             onToggleSidebar={() => setCollapsed((c) => !c)}
             breadcrumb={[
               { label: 'dashboard' },
-              { label: activeItem, active: !param || false },
-              ...(param ? [{ label: param.name, active: true }] : [])
+              ...((param ? pathName : []) || [])
             ]}
           />
 
