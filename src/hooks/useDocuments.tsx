@@ -7,46 +7,61 @@ export const useDocuments = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [impacts, setImpacts] = useState<Impact[]>([]);
   const [medias, setMedia] = useState<MediaMetadata[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
 
   const onFetchTags = useCallback(() => {
-    fetchTags().then((data) => setTags(data as Tag[]));
+    setLoading(true);
+    fetchTags().then((data) => {
+      setTags(data as Tag[]);
+      setLoading(false);
+    });
   }, []);
 
   const createTag = async (data: Omit<Tag, 'created_at'>) => {
+    setLoading(true);
     await addTag(data);
     onFetchTags();
   }
 
+
   const deleteTagId = async (id: string) => {
+    setLoading(true);
     await deleteTagById(id);
     onFetchTags();
   }
 
   const onFetchImpacts = useCallback(() => {
+    setLoading(true);
     fetchImpactsCollection().then((data) => {
       setImpacts(data)
+      setLoading(false);
     });
   }, []);
 
-    const onFetchMedia = useCallback(() => {
+  const onFetchMedia = useCallback(() => {
+    setLoading(true);
     fetchMediaCollection().then((data) => {
       setMedia(data);
+       setLoading(false);
     });
   }, []);
 
   const createImpact = async (data: { value: string }[]) => {
+    setLoading(true);
     await createImpactCollection(data);
     onFetchImpacts();
   }
 
   const deleteImpactId = async (id: string) => {
+    setLoading(true);
     await deleteImpactById(id);
     onFetchImpacts();
   }
 
   const uploadMedia = async (metadata: MediaMetadata | null) => {
     if (metadata) {
+      setLoading(true);
       await uploadMediaCollection(metadata);
       onFetchMedia();
     }
@@ -62,6 +77,7 @@ export const useDocuments = () => {
   }, []);
 
   return {
+    loading,
     tags,
     impacts,
     medias,

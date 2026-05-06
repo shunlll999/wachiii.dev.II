@@ -6,7 +6,7 @@ import ds from '@/styles/dashboard/Documents.module.css'
 import { useDocuments } from "@/hooks/useDocuments";
 
 const MediaPage = () => {
-  const { medias, uploadMedia } = useDocuments();
+  const { loading, medias, uploadMedia } = useDocuments();
   const [metadata, setMetadata] = useState<MediaMetadata | null>(null);
   const [preview, setPreview] = useState(null);
 
@@ -57,6 +57,8 @@ const onChangeALT = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   const handleOnSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (Object.entries(metadata || {}).some(([key, value]) => !value)) alert("Please fill all fields");
+    else
     await uploadMedia(metadata);
     setMetadata({
         name: '',
@@ -73,8 +75,6 @@ const onChangeALT = (event: React.ChangeEvent<HTMLInputElement>) => {
     // rest of your code
   }
 
-  console.log('medias', medias);
-
   return (
     <div>
       <form onSubmit={handleOnSubmit}>
@@ -83,7 +83,7 @@ const onChangeALT = (event: React.ChangeEvent<HTMLInputElement>) => {
         <div className={ds['media-info-box']} >
           <div className={ds['media-info-input']}>
             <label htmlFor="filename">File Name:</label>
-            <input type="text" name="filename" value={metadata?.name} readOnly />
+            <input type="text" name="filename" value={metadata?.name ?? ''} readOnly />
           </div>
           <div className={ds['media-info-input']}>
             <label htmlFor="dimensions">Dimensions:</label>
@@ -91,19 +91,19 @@ const onChangeALT = (event: React.ChangeEvent<HTMLInputElement>) => {
           </div>
           <div className={ds['media-info-input']}>
             <label htmlFor="size">Size:</label>
-            <input type="text" name="size" value={metadata?.size} readOnly />
+            <input type="text" name="size" value={metadata?.size ?? ''} readOnly />
           </div>
           <div className={ds['media-info-input']}>
             <label htmlFor="type">Type:</label>
-            <input type="text" name="size" value={metadata?.type} readOnly />
+            <input type="text" name="size" value={metadata?.type ?? ''} readOnly />
           </div>
           <div className={ds['media-info-input']}>
             <label htmlFor="lastModified">Last Modified:</label>
-            <input type="text" name="lastModified" value={metadata?.lastModified} readOnly />
+            <input type="text" name="lastModified" value={metadata?.lastModified ?? '' } readOnly />
           </div>
           <div className={ds['media-info-input']}>
             <label htmlFor="alt">alt:</label>
-            <input type="text" name="alt" value={metadata?.alt} onChange={onChangeALT} />
+            <input type="text" name="alt" value={metadata?.alt ?? ''} onChange={onChangeALT} />
           </div>
           </div>
           {preview &&
@@ -112,7 +112,7 @@ const onChangeALT = (event: React.ChangeEvent<HTMLInputElement>) => {
               <img src={preview} alt={metadata?.name} />
             </div>}
             <div className={ds['upload-bar']}>
-              <button type="submit" className={ds.uploadButton}>⬆️ Upload</button>
+              <button type="submit" className={ds.uploadButton}>⬆️ {loading ? "Uploading..." : "Upload"}</button>
             </div>
         </form>
         <div className={ds.mediaBox}>

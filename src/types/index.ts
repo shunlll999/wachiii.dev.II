@@ -161,6 +161,7 @@ export interface Impact {
 // ─────────────────────────────────────────────
 
 export interface MediaMetadata {
+  id?: string;
   name: string;
   width: number;
   height: number;

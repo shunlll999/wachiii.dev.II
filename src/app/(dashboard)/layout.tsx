@@ -11,9 +11,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const user = useMemo(() => auth, [auth]);
   const pathList = pathname.split('/').filter((p) => p !== '' && p !== 'console');
 
-
-  console.log('user', user);
-
   return (
     <html lang="en">
       <head>

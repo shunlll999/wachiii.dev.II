@@ -10,7 +10,7 @@ const PortfolioDetailClient = () => {
   const params = useSearchParams();
   const pid = params.get('pid')
   const { portfolio, getPortfolioById } = useProducts();
-  const { tags, impacts } = useDocuments();
+  const { tags, impacts, medias } = useDocuments();
 
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const PortfolioDetailClient = () => {
 
   if (!portfolio) return null
 
-  return <PortfolioDetail portfolio={portfolio} tags={tags} impacts={impacts} />
+  return <PortfolioDetail portfolio={portfolio} tags={tags} impacts={impacts} medias={medias || []} />
 }
 
 export default PortfolioDetailClient

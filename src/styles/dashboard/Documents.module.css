@@ -129,6 +129,7 @@
   outline: none;
   color: #cfdef7;
   background: #374151;
+  max-width: 400px;
 
   -webkit-appearance: none;  /* สำหรับ Chrome, Safari, Edge */
   -moz-appearance: none;     /* สำหรับ Firefox */

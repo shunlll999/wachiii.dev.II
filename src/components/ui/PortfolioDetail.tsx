@@ -1,18 +1,20 @@
 'use client'
 import s from '@/styles/dashboard/Portfolio.module.css'
 import ds from '@/styles/dashboard/Documents.module.css'
-import { Impact, Portfolio, Project, Tag } from '@/types'
+import { Impact, Portfolio, Project, Tag, MediaMetadata } from '@/types'
 import { addProject } from '@/services/firebaseCollection'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import type { SyntheticEvent, ReactElement } from 'react'
+import InputTag from './InputTag'
+import ScreenShortDropdown from './Dropdown'
 
-type FieldType = 'string' | 'string[]' | 'enum' | 'boolean' | 'tags[]' | 'impacts[]';
+type FieldType = 'string' | 'string[]' | 'enum' | 'boolean' | 'tags[]' | 'impacts[]' | 'reference[]';
 
 const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'title', type: 'string', required: true },
   { name: 'slug', type: 'string', required: true },
   { name: 'category', type: 'string', required: true },
-  { name: 'tags', type: 'tags[]', required: true },
+  { name: 'tags', type: 'tags[]', required: false },
   { name: 'tagColor', type: 'enum', required: true },
   { name: 'description', type: 'string', required: true },
   { name: 'longDescription', type: 'string', required: true },
@@ -23,14 +25,17 @@ const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'color', type: 'string', required: true },
   { name: 'gradient', type: 'string', required: true },
   { name: 'featured', type: 'boolean', required: true },
-  { name: 'screenshots', type: 'string[]', required: false },
+  { name: 'screenshots', type: 'reference[]', required: false },
   { name: 'liveUrl', type: 'string', required: false },
   { name: 'repoUrl', type: 'string', required: false },
 ]
 
-const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, tags: Tag[], impacts: Impact[] }) => {
+const PortfolioDetail = ({ portfolio, impacts, medias }: { portfolio: Portfolio, tags?: Tag[], impacts: Impact[], medias: MediaMetadata[] }) => {
   const { product_info, ...rest } = portfolio;
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [mediasSelected, setMediaSelected] = useState<string[]>([]);
+  const [tagsValue, setTagsValue] = useState<string[]>([]);
+  const [screenOpen, setScreenOpen] = useState(false);
 
   const fieldInputMap: Record<FieldType, (name: string) => ReactElement> = {
   'string': (name) => (
@@ -45,14 +50,12 @@ const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, t
   'boolean': (name) => (
     <div><input type="checkbox" id={name} name={name} /></div>
   ),
-  'tags[]': (name) => (
-    <select id={name} name={name} className={ds.select}>
-      <option value="">Select tags</option>
-      {tags.map((tag) => (
-        <option key={tag.id} value={tag.value}>{tag.value}</option>
-      ))}
-    </select>
-  ),
+  'tags[]': (name) => {
+    const onChangeTag = useCallback((tags: string[]) => {
+      setTagsValue(tags);
+    }, [])
+    return <InputTag onChange={onChangeTag} />
+  },
   'impacts[]': (name) => (
     <select id={name} name={name} className={ds.select}>
       <option value="">Select impact</option>
@@ -61,6 +64,12 @@ const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, t
       ))}
     </select>
   ),
+  'reference[]': (name) => {
+    const onChangeDropdown = useCallback((media: string[]) => {
+      setMediaSelected(media);
+    }, []);
+    return <ScreenShortDropdown medias={medias} onChange={onChangeDropdown} />
+  },
 };
 
 
@@ -70,14 +79,21 @@ const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, t
     const newErrors: Record<string, string> = {};
 
     formTemplate.forEach(({ name, type, required }) => {
-      if (!required || type === 'boolean') return;
+      if (!required || (type === 'boolean')) return;
       const input = form.elements.namedItem(name) as HTMLInputElement;
       if (!input || !input.value.trim()) {
         newErrors[name] = 'required';
       }
-
-
     });
+
+    if (mediasSelected.length === 0 && !mediasSelected.includes('none')) {
+      newErrors.screenshots = 'required';
+      setScreenOpen(false)
+    }
+
+    if (tagsValue.length === 0) {
+      newErrors.tags = 'required';
+    }
 
     setErrors(newErrors);
 
@@ -87,7 +103,7 @@ const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, t
         title:           getValue('title'),
         slug:            getValue('slug'),
         category:        getValue('category'),
-        tags:            getValue('tags').split(',').map(t => t.trim()).filter(Boolean),
+        tags:            tagsValue,
         tagColor:        getValue('tagColor') as Project['tagColor'],
         description:     getValue('description'),
         longDescription: getValue('longDescription'),
@@ -98,13 +114,16 @@ const PortfolioDetail = ({ portfolio, tags, impacts }: { portfolio: Portfolio, t
         color:           getValue('color') as Project['color'],
         gradient:        getValue('gradient'),
         featured:        (form.elements.namedItem('featured') as HTMLInputElement).checked,
-        screenshots:     getValue('screenshots') ? getValue('screenshots').split(',').map(t => t.trim()).filter(Boolean) : undefined,
+        screenshots:     mediasSelected,
         liveUrl:         getValue('liveUrl') || undefined,
         repoUrl:         getValue('repoUrl') || undefined,
       };
-      addProject(data)
-        .then((id) => alert(`Saved! Document ID: ${id}`))
-        .catch((err) => alert(`Error: ${err.message}`));
+
+      console.log(data);
+
+      // addProject(data)
+      //   .then((id) => alert(`Saved! Document ID: ${id}`))
+      //   .catch((err) => alert(`Error: ${err.message}`));
     }
   };
 
