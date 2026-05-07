@@ -16,6 +16,16 @@ async function resolveRefs(obj: Record<string, unknown>): Promise<Record<string,
   return resolved;
 }
 
+async function resolveArrayRefs(arr: unknown[]): Promise<unknown[]> {
+  return Promise.all(arr.map(async (item) => {
+    if (item instanceof DocumentReference) {
+      const refSnap = await getDoc(item);
+      return refSnap.exists() ? { id: refSnap.id, ...refSnap.data() } : null;
+    }
+    return item;
+  }));
+}
+
 export const getPortfoliosCollection = async () => {
   const querySnapshot = await getDocs(collection(db, "portfoliosCollection"));
   return querySnapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
@@ -24,9 +34,14 @@ export const getPortfoliosCollection = async () => {
 export const getPortfoliosCollectionByID = async (id: string) => {
   const docRef = doc(db, 'portfoliosCollection', id);
   const snap = await getDoc(docRef);
-  if (!snap.exists()) return [];
+  if (!snap.exists()) return null;
   const raw = { id: snap.id, ...snap.data() } as Record<string, unknown>;
   const resolved = await resolveRefs(raw);
+
+  if (Array.isArray(resolved.screenshots)) {
+    resolved.screenshots = await resolveArrayRefs(resolved.screenshots);
+  }
+
   return resolved;
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import s from '@/styles/ui/Tag.module.css'
 
-const InputToTag = ({onChange}: {onChange: (tags: string[]) => void}) => {
+const InputToTag = ({onChange, defaultValue}: {onChange: (tags: string[]) => void, defaultValue: string}) => {
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -30,6 +30,10 @@ const InputToTag = ({onChange}: {onChange: (tags: string[]) => void}) => {
   useEffect(() => {
     tags.length > 0 && onChange(tags);
   }, [tags]);
+
+  useEffect(() => {
+    defaultValue && setTags(defaultValue.split(',').map(tag => tag.trim()));
+  }, [defaultValue]);
 
   return (
     <div className={s['tag-panel']}>

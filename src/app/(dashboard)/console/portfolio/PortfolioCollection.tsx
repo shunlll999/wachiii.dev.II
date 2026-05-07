@@ -76,7 +76,7 @@ const PortfolioCollection = () => {
               <td className={`${s.tableCell} ${s.type}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).category : (portfolio as Portfolio).type}</td>
               <td className={`${s.tableCell} ${s.viewed}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).viewed || 0 : (portfolio as Portfolio).viewed}</td>
               <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).description : (portfolio as Portfolio).describe}</td>
-              <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).screenshots?.toString() : (portfolio as Portfolio).photo_url}</td>
+              <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? "Images in side detail[]" : (portfolio as Portfolio).photo_url}</td>
               <td className={`${s.tableCell} ${s.url}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).year : (portfolio as Portfolio).product_year}</td>
               <td className={s.tableCell}>
                 <div className={s.action}>

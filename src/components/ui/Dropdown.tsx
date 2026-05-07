@@ -2,15 +2,15 @@ import s from "@/styles/ui/Dropdown.module.css";
 import { MediaMetadata  } from "@/types";
 import { useEffect, useState } from "react";
 
-const Dropdown = ({ medias,  onChange }: { medias: MediaMetadata[], onChange: (uid: string[]) => void }) => {
+const Dropdown = ({ medias,  onChange, defaultValue }: { medias: MediaMetadata[], onChange: (uid: string[]) => void, defaultValue: MediaMetadata[] }) => {
   const [open, setOpen] = useState(false);
   const [mediaSelected, setMediaSelected] = useState<MediaMetadata[] | null>(null);
   const onHandleShowList = () => {
     setOpen(true);
   }
 
-
   const onSelectImage = (media: MediaMetadata) => {
+    console.log('Selected media:', media);
     setOpen(false);
     if ((mediaSelected ?? []).length > 3) return;
     setMediaSelected(prev => {
@@ -31,6 +31,10 @@ const Dropdown = ({ medias,  onChange }: { medias: MediaMetadata[], onChange: (u
     const ids = (mediaSelected ?? []).map((p) => p?.id) as string[];
     onChange(ids);
   }, [mediaSelected]);
+
+  useEffect(() => {
+    defaultValue && setMediaSelected(defaultValue);
+  }, []);
 
 
   return <div className={s.listContainer}>

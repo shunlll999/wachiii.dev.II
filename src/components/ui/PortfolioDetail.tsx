@@ -35,48 +35,50 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
   const [mediasSelected, setMediaSelected] = useState<string[]>([]);
   const [tagsValue, setTagsValue] = useState<string[]>([]);
   const [screenOpen, setScreenOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const fieldInputMap: Record<FieldType, (name: string) => ReactElement> = {
-  'string': (name) => (
-    <input type="text" id={name} name={name} />
+  const fieldInputMap: Record<FieldType, (name: string, defaultValue?: string | string[] | MediaMetadata[]) => ReactElement> = {
+  'string': (name, defaultValue) => (
+    <input type="text" id={name} name={name} defaultValue={defaultValue as string} />
   ),
-  'number': (name) => (
-    <input type="number" id={name} name={name} />
+  'number': (name, defaultValue) => (
+    <input type="number" id={name} name={name} defaultValue={defaultValue as string} />
   ),
-  'string[]': (name) => (
-    <input type="text" id={name} name={name} placeholder="comma (,) separated" />
+  'string[]': (name, defaultValue) => (
+    <input type="text" id={name} name={name} defaultValue={defaultValue as string} placeholder="comma (,) separated" />
   ),
-  'enum': (name) => (
-    <input type="text" id={name} name={name} />
+  'enum': (name, defaultValue) => (
+    <input type="text" id={name} name={name} defaultValue={defaultValue as string} />
   ),
-  'boolean': (name) => (
-    <div><input type="checkbox" id={name} name={name} /></div>
+  'boolean': (name, defaultValue) => (
+    <div><input type="checkbox" id={name} name={name} defaultChecked={defaultValue === 'true'} /></div>
   ),
-  'tags[]': (name) => {
+  'tags[]': (name, defaultValue) => {
     const onChangeTag = useCallback((tags: string[]) => {
       setTagsValue(tags);
     }, [])
-    return <InputTag onChange={onChangeTag} />
+    return <InputTag onChange={onChangeTag} defaultValue={Array.isArray(defaultValue) ? defaultValue.join(',') : (defaultValue ?? '')} />
   },
-  'impacts[]': (name) => (
-    <select id={name} name={name} className={ds.select}>
+  'impacts[]': (name, defaultValue) => (
+    <select id={name} name={name} className={ds.select} defaultValue={defaultValue as string}>
       <option value="">Select impact</option>
       {impacts.map((impact) => (
         <option key={impact.id} value={impact.impactList}>{impact.impactList.map((im) => im).join(', ')}</option>
       ))}
     </select>
   ),
-  'reference[]': (name) => {
+  'reference[]': (name, defaultValue) => {
     const onChangeDropdown = useCallback((media: string[]) => {
       setMediaSelected(media);
     }, []);
-    return <ScreenShortDropdown medias={medias} onChange={onChangeDropdown} />
+    return <ScreenShortDropdown medias={medias} onChange={onChangeDropdown} defaultValue={Array.isArray(defaultValue) ? defaultValue as MediaMetadata[] : []} />
   },
 };
 
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.currentTarget as HTMLFormElement;
     const newErrors: Record<string, string> = {};
 
@@ -122,13 +124,16 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
         viewed:          portfolio.viewed || 0
       };
 
-      onAddProject(portfolio.id, data);
+       onAddProject(portfolio.id, data);
+       setTimeout(() => {
+        setLoading(false);
+       }, 5000);
     }
   };
 
   return (
     <div>
-      <div className={s['detail-migrate']}>
+      {!portfolio.isMigrated && <div className={s['detail-migrate']}>
         <div className={s.title}>Portfolio Detail (Yet Migrate)</div>
         {Object.entries(rest).map(([key, value]) => (
           <div className={s['detail-section']} key={key}>
@@ -143,8 +148,8 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
             <div className={s.value}>{value}</div>
           </div>
         ))}
-      </div>
-      <h1>Migrate Detail</h1>
+      </div>}
+      <h1>Migrated Detail</h1>
       <div className={`${s['detail-migrate']} ${s.formWrapper}`}>
         <div className={s.title}>Portfolio Detail Form</div>
         <form onSubmit={handleSubmit} noValidate>
@@ -153,7 +158,7 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
             <div className={s.formGroupView} key={name}>
               <div className={s.formGroupLabel}>
                 <div className={s.labelView}>{name}:</div>
-                {fieldInputMap[type](name)}
+                {fieldInputMap[type](name, type === 'reference[]' ? ((portfolio as unknown as Record<string, string[]>)[name] ?? []) : String(portfolio[name as keyof Portfolio] ?? ''))}
               </div>
               {errors[name] && (
                 <span className={s.error}>
@@ -164,7 +169,11 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
           ))}
           </div>
           <div className={s.buttonSubmit}>
-            <button type="submit">Update</button>
+            {
+            loading ? <div className={s.buttonLoading} /> :
+            <button type="submit" >
+              Update
+            </button>}
           </div>
         </form>
       </div>
