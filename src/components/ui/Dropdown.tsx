@@ -27,7 +27,7 @@ const Dropdown = ({ medias,  onChange }: { medias: MediaMetadata[], onChange: (u
   };
 
   useEffect(() => {
-    if ((mediaSelected ?? []).length > 3) return;
+    if ((mediaSelected ?? []).length > 4) return;
     const ids = (mediaSelected ?? []).map((p) => p?.id) as string[];
     onChange(ids);
   }, [mediaSelected]);
@@ -37,7 +37,7 @@ const Dropdown = ({ medias,  onChange }: { medias: MediaMetadata[], onChange: (u
     <div className={s.display} onClick={onHandleShowList}>
       {mediaSelected?.map((media, _) => (
         <div className={s.mediaView}>
-          <img key={_} className={s.itemDisplay} style={{ width: 80, height: 80, objectFit: 'cover' }} src={media.downloadURL} alt={media.name} />
+          <img key={_} className={s.itemDisplay} src={media.downloadURL} alt={media.name} />
           <button
               type="button"
               onClick={() => removeImage(_)}

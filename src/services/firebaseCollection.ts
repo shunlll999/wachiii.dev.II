@@ -39,12 +39,14 @@ const stripUndefined = <T extends Record<string, unknown>>(obj: T): T =>
   Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
 
 export const addProject = async (data: Omit<Project, 'id'>): Promise<string> => {
-  const docRef = await addDoc(collection(db, "portfoliosCollection"), stripUndefined(data as Record<string, unknown>));
+  const productRefs = data.screenshots?.map(id => doc(db, "mediaCollection", id));
+  const docRef = await addDoc(collection(db, "portfoliosCollection"), stripUndefined({...data, screenshots: productRefs } as Record<string, unknown>));
   return docRef.id;
 };
 
 export const updateProjectById = async (id: string, data: Partial<Omit<Project, 'id'>>): Promise<void> => {
-  await updateDoc(doc(db, "portfoliosCollection", id), stripUndefined(data as Record<string, unknown>));
+  const productRefs = data.screenshots?.map(id => doc(db, "mediaCollection", id));
+  await updateDoc(doc(db, "portfoliosCollection", id), stripUndefined({ ...data, screenshots: productRefs } as Record<string, unknown>));
 };
 
 export const getDocumentsCollection = async () => {

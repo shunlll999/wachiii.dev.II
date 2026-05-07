@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { getPortfoliosCollection, deletePortfolioById, getPortfoliosCollectionByID } from '@/services/firebaseCollection'
-import { Portfolio } from "@/types";
+import { getPortfoliosCollection, deletePortfolioById, getPortfoliosCollectionByID, addProject, updateProjectById } from '@/services/firebaseCollection'
+import { Portfolio, Project } from "@/types";
 
 export const useProducts = () => {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
@@ -9,6 +9,16 @@ export const useProducts = () => {
   const fetchPortfolios = async () => {
     const data = await getPortfoliosCollection();
     setPortfolios(data as Portfolio[]);
+  };
+
+  const createPortfolio = async (data: Omit<Project, 'id'>) => {
+    await addProject(data);
+    fetchPortfolios();
+  };
+
+  const updatePortfolio = async (id: string, data: Partial<Omit<Project, 'id'>>) => {
+    await updateProjectById(id, data);
+    fetchPortfolios();
   };
 
   const deletePortfolio = async (id: string) => {
@@ -25,5 +35,5 @@ export const useProducts = () => {
     fetchPortfolios();
   }, []);
 
-  return { portfolios, portfolio, deletePortfolio, getPortfolioById };
+  return { portfolios, portfolio, deletePortfolio, getPortfolioById, createPortfolio, updatePortfolio };
 }

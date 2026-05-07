@@ -3,7 +3,7 @@ import { IconDelete, IconEdit } from "@/components/dashboard-ui/Icons";
 import { useProducts } from "@/hooks/useProducts";
 import s from '@/styles/dashboard/Portfolio.module.css'
 import ds from '@/styles/dashboard/Documents.module.css'
-import { Portfolio } from "@/types";
+import { Portfolio, Project } from "@/types";
 import { useRouter } from "next/navigation";
 import { useState, useMemo } from "react";
 
@@ -70,14 +70,14 @@ const PortfolioCollection = () => {
           </tr>
         </thead>
         <tbody>
-          {filtered.map((portfolio: Portfolio, index) => (
+          {filtered.map((portfolio: Portfolio | Project, index) => (
             <tr className={index%2 === 0 ? s.even : s.mod} key={portfolio.id}>
-              <td className={`${s.tableCell} ${s.name}`}>{portfolio.name}</td>
-              <td className={`${s.tableCell} ${s.type}`}>{portfolio.type}</td>
-              <td className={`${s.tableCell} ${s.viewed}`}>{portfolio.viewed}</td>
-              <td className={s.tableCell}>{portfolio.describe}</td>
-              <td className={s.tableCell}>{portfolio.photo_url}</td>
-              <td className={`${s.tableCell} ${s.url}`}>{portfolio.product_year}</td>
+              <td className={`${s.tableCell} ${s.name}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).title : (portfolio as Portfolio).name}</td>
+              <td className={`${s.tableCell} ${s.type}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).category : (portfolio as Portfolio).type}</td>
+              <td className={`${s.tableCell} ${s.viewed}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).viewed || 0 : (portfolio as Portfolio).viewed}</td>
+              <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).description : (portfolio as Portfolio).describe}</td>
+              <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).screenshots?.toString() : (portfolio as Portfolio).photo_url}</td>
+              <td className={`${s.tableCell} ${s.url}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).year : (portfolio as Portfolio).product_year}</td>
               <td className={s.tableCell}>
                 <div className={s.action}>
                   <button className={s.actionButton} onClick={() => handleEdit(portfolio.id)}><IconEdit /></button>

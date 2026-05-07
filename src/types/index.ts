@@ -32,6 +32,7 @@ export interface Project {
   screenshots?: string[];
   liveUrl?: string;
   repoUrl?: string;
+  viewed?: number;
 }
 
 export interface Portfolio {
@@ -45,6 +46,7 @@ export interface Portfolio {
   product_info?: {
     [key: string]: string | number
   };
+  isMigrated?: boolean;
 }
 
 // ─────────────────────────────────────────────

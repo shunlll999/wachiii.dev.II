@@ -2,35 +2,34 @@
 import s from '@/styles/dashboard/Portfolio.module.css'
 import ds from '@/styles/dashboard/Documents.module.css'
 import { Impact, Portfolio, Project, Tag, MediaMetadata } from '@/types'
-import { addProject } from '@/services/firebaseCollection'
 import { useCallback, useState } from 'react'
 import type { SyntheticEvent, ReactElement } from 'react'
 import InputTag from './InputTag'
 import ScreenShortDropdown from './Dropdown'
 
-type FieldType = 'string' | 'string[]' | 'enum' | 'boolean' | 'tags[]' | 'impacts[]' | 'reference[]';
+type FieldType = 'string' | 'string[]' | 'enum' | 'number' | 'boolean' | 'tags[]' | 'impacts[]' | 'reference[]';
 
 const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'title', type: 'string', required: true },
   { name: 'slug', type: 'string', required: true },
   { name: 'category', type: 'string', required: true },
-  { name: 'tags', type: 'tags[]', required: false },
   { name: 'tagColor', type: 'enum', required: true },
+  { name: 'tags', type: 'tags[]', required: false },
+  { name: 'screenshots', type: 'reference[]', required: false },
   { name: 'description', type: 'string', required: true },
   { name: 'longDescription', type: 'string', required: true },
   { name: 'impact', type: 'impacts[]', required: true },
   { name: 'challenge', type: 'string', required: true },
   { name: 'solution', type: 'string', required: true },
-  { name: 'year', type: 'string', required: true },
+  { name: 'year', type: 'number', required: true },
   { name: 'color', type: 'string', required: true },
   { name: 'gradient', type: 'string', required: true },
   { name: 'featured', type: 'boolean', required: true },
-  { name: 'screenshots', type: 'reference[]', required: false },
   { name: 'liveUrl', type: 'string', required: false },
   { name: 'repoUrl', type: 'string', required: false },
 ]
 
-const PortfolioDetail = ({ portfolio, impacts, medias }: { portfolio: Portfolio, tags?: Tag[], impacts: Impact[], medias: MediaMetadata[] }) => {
+const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfolio: Portfolio, tags?: Tag[], impacts: Impact[], medias: MediaMetadata[], onAddProject: (id:string ,project: Omit<Project, 'id'>) => void }) => {
   const { product_info, ...rest } = portfolio;
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [mediasSelected, setMediaSelected] = useState<string[]>([]);
@@ -40,6 +39,9 @@ const PortfolioDetail = ({ portfolio, impacts, medias }: { portfolio: Portfolio,
   const fieldInputMap: Record<FieldType, (name: string) => ReactElement> = {
   'string': (name) => (
     <input type="text" id={name} name={name} />
+  ),
+  'number': (name) => (
+    <input type="number" id={name} name={name} />
   ),
   'string[]': (name) => (
     <input type="text" id={name} name={name} placeholder="comma (,) separated" />
@@ -117,13 +119,10 @@ const PortfolioDetail = ({ portfolio, impacts, medias }: { portfolio: Portfolio,
         screenshots:     mediasSelected,
         liveUrl:         getValue('liveUrl') || undefined,
         repoUrl:         getValue('repoUrl') || undefined,
+        viewed:          portfolio.viewed || 0
       };
 
-      console.log(data);
-
-      // addProject(data)
-      //   .then((id) => alert(`Saved! Document ID: ${id}`))
-      //   .catch((err) => alert(`Error: ${err.message}`));
+      onAddProject(portfolio.id, data);
     }
   };
 
@@ -134,7 +133,7 @@ const PortfolioDetail = ({ portfolio, impacts, medias }: { portfolio: Portfolio,
         {Object.entries(rest).map(([key, value]) => (
           <div className={s['detail-section']} key={key}>
             <label>{key}:</label>
-            <div className={s.value}>{value}</div>
+            <div className={s.value}>{value.toString()}</div>
           </div>
         ))}
         {product_info && <div className={`${s.title} ${s.info}`}>product_info</div>}
