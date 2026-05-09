@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import { getPortfoliosCollection, deletePortfolioById, getPortfoliosCollectionByID, addProject, updateProjectById } from '@/services/firebaseCollection'
+import { getPortfoliosCollection, deletePortfolioById, getPortfoliosCollectionByID, addProject, updateProjectById, getPortfoliosCollectionBySlug } from '@/services/firebaseCollection'
 import { Portfolio, Project } from "@/types";
 
 export const useProducts = () => {
-  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
-  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
+  const [portfolios, setPortfolios] = useState<Project[]>([]);
+  const [portfolio, setPortfolio] = useState<Portfolio | Project | null>(null);
 
   const fetchPortfolios = async () => {
     const data = await getPortfoliosCollection();
-    setPortfolios(data as Portfolio[]);
+    setPortfolios(data as Project[]);
   };
 
   const createPortfolio = async (data: Omit<Project, 'id'>) => {
@@ -28,12 +28,22 @@ export const useProducts = () => {
 
   const getPortfolioById = async (id: string) => {
     const data = await getPortfoliosCollectionByID(id);
-    setPortfolio(data as unknown as Portfolio);
+    if (data !== null) {
+      setPortfolio(data as unknown as Portfolio | Project);
+    }
   };
+
+  const getPortfolioBySlug = async (slug: string) => {
+    const data = await getPortfoliosCollectionBySlug(slug);
+    if (data !== null) {
+      setPortfolio(data as unknown as Portfolio | Project);
+    }
+  };
+
 
   useEffect(() => {
     fetchPortfolios();
   }, []);
 
-  return { portfolios, portfolio, deletePortfolio, getPortfolioById, createPortfolio, updatePortfolio };
+  return { portfolios, portfolio, deletePortfolio, getPortfolioById, getPortfolioBySlug, createPortfolio, updatePortfolio };
 }

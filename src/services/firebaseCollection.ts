@@ -1,5 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, DocumentReference, getDoc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
-import { db, storage } from "./firebase";
+import { collection as liteCollection, getDocs as liteGetDocs, getFirestore as liteGetFirestore } from "firebase/firestore/lite";
+import { db, storage, app } from "./firebase";
 import type { Project, Tag } from "@/types";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -31,11 +32,36 @@ export const getPortfoliosCollection = async () => {
   return querySnapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
 };
 
+// Uses firebase/firestore/lite (REST-based, no GRPC) — safe for server-side SSG
+export const getPortfolioSlugs = async (): Promise<{ id: string; slug: string }[]> => {
+  const liteDb = liteGetFirestore(app);
+  const querySnapshot = await liteGetDocs(liteCollection(liteDb, "portfoliosCollection"));
+  return querySnapshot.docs
+    .map((d) => ({ id: d.id, slug: d.data().slug as string | undefined }))
+    .filter((d): d is { id: string; slug: string } => typeof d.slug === "string" && d.slug.length > 0);
+};
+
 export const getPortfoliosCollectionByID = async (id: string) => {
   const docRef = doc(db, 'portfoliosCollection', id);
   const snap = await getDoc(docRef);
   if (!snap.exists()) return null;
   const raw = { id: snap.id, ...snap.data() } as Record<string, unknown>;
+  const resolved = await resolveRefs(raw);
+
+  if (Array.isArray(resolved.screenshots)) {
+    resolved.screenshots = await resolveArrayRefs(resolved.screenshots);
+  }
+
+  return resolved;
+};
+
+
+export const getPortfoliosCollectionBySlug = async (slug: string) => {
+  const q = query(collection(db, "portfoliosCollection"), where("slug", "==", slug));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.empty) return null;
+  const doc = querySnapshot.docs[0];
+  const raw = { id: doc.id, ...doc.data() } as Record<string, unknown>;
   const resolved = await resolveRefs(raw);
 
   if (Array.isArray(resolved.screenshots)) {

@@ -86,7 +86,7 @@ export default function ContactSection() {
                       value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} required />
                   </div>
                   {form.error && <p style={{ fontFamily:"var(--font-mono)", fontSize:12, color:"var(--magenta)" }}>{form.error}</p>}
-                  <button type="submit" className={s.submitBtn}>TRANSMIT_MESSAGE →</button>
+                  <button type="submit" className={s.submitBtn} disabled>TRANSMIT_MESSAGE →</button>
                 </div>
               </form>
             )}

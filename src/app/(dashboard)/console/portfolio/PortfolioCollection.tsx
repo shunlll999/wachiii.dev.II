@@ -25,17 +25,22 @@ const PortfolioCollection = () => {
     router.push(`/console/portfolio/detail?pid=${id}`);
   }
 
-  const filtered = useMemo(() => {
-    if (!portfolios) return [];
-    return portfolios.filter((p: Portfolio) =>
-      p.name?.toLowerCase().includes(filters.name.toLowerCase()) &&
-      p.type?.toLowerCase().includes(filters.type.toLowerCase()) &&
-      String(p.viewed ?? "").includes(filters.viewed) &&
-      p.describe?.toLowerCase().includes(filters.describe.toLowerCase()) &&
-      p.photo_url?.toLowerCase().includes(filters.photo_url.toLowerCase()) &&
-      String(p.product_year ?? "").includes(filters.product_year)
-    );
-  }, [portfolios, filters]);
+const filtered = useMemo(() => {
+  if (!portfolios) return [];
+  return portfolios.filter((p: Project | Portfolio) => {
+    if ('name' in p) {
+      return (
+        p.name?.toLowerCase().includes(filters.name.toLowerCase()) &&
+        p.type?.toLowerCase().includes(filters.type.toLowerCase()) &&
+        String(p.viewed ?? "").includes(filters.viewed) &&
+        p.describe?.toLowerCase().includes(filters.describe.toLowerCase()) &&
+        p.photo_url?.toLowerCase().includes(filters.photo_url.toLowerCase()) &&
+        String(p.product_year ?? "").includes(filters.product_year)
+      );
+    }
+    return false;
+  });
+}, [portfolios, filters]);
 
   if (!portfolios) return <>loading</>
 
@@ -76,7 +81,7 @@ const PortfolioCollection = () => {
               <td className={`${s.tableCell} ${s.type}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).category : (portfolio as Portfolio).type}</td>
               <td className={`${s.tableCell} ${s.viewed}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).viewed || 0 : (portfolio as Portfolio).viewed}</td>
               <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).description : (portfolio as Portfolio).describe}</td>
-              <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? "Images in side detail[]" : (portfolio as Portfolio).photo_url}</td>
+              <td className={s.tableCell}>{(portfolio as Portfolio).isMigrated ? (portfolio as Portfolio).name : (portfolio as Portfolio).photo_url}</td>
               <td className={`${s.tableCell} ${s.url}`}>{(portfolio as Portfolio).isMigrated ? (portfolio as Project).year : (portfolio as Portfolio).product_year}</td>
               <td className={s.tableCell}>
                 <div className={s.action}>

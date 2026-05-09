@@ -1,11 +1,12 @@
 "use client";
-import { Fragment, use, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import s from "@/styles/portfolio.module.css";
-import { projects } from "@/data/projects";
+import cs from "@/styles/dashboard/Portfolio.module.css";
 import { getRelatedProjects } from "@/utils";
-import { notFound } from "next/navigation";
-import type { TagColor } from "@/types";
+import { useSearchParams } from "next/navigation";
+import type { Project, TagColor } from "@/types";
+import { useProducts } from "@/hooks/useProducts";
 
 const ACCENT_COLORS = ["#00ff88","#00e5ff","#aaff00","#00ff88"];
 
@@ -15,31 +16,53 @@ function tagCls(c: TagColor) {
   return "techTag";
 }
 
-export default function PortfolioDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const project = projects.find(p => p.slug === slug);
-  if (!project) notFound();
+export default function PortfolioDetail() {
+  const params = useSearchParams();
+  const [loading, setLoading] = useState<boolean>(false);
+  const slug = params.get("slug");
+  const { getPortfolioBySlug, portfolio, portfolios } = useProducts();
+  const [related, setRelated] = useState<Project[]>([]);
 
   const ref = useRef<HTMLDivElement>(null);
-  const related = getRelatedProjects(projects, slug, 3);
 
   useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
-      { threshold: 0.08 }
-    );
-    ref.current.querySelectorAll("[data-reveal]").forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
+    if (slug) {
+      setLoading(true);
+      getPortfolioBySlug(slug).finally(() => {
+        console.log("portfolio::> loaded");
+        setTimeout(() => {
+          if (ref.current) ref.current.scrollIntoView({ behavior: "smooth" });
+          setLoading(false)
+        }, 1000);
+
+      });
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    if (portfolio) {
+      const rel = getRelatedProjects(portfolios, (portfolio as Project).slug, 3);
+      setRelated(rel);
+    }
+  }, [portfolio]);
+
+  // useEffect(() => {
+  //   if (!ref.current) return;
+  //   const obs = new IntersectionObserver(
+  //     es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+  //     { threshold: 0.08 }
+  //   );
+  //   ref.current.querySelectorAll("[data-reveal]").forEach(el => obs.observe(el));
+  //   return () => obs.disconnect();
+  // }, []);
 
   return (
-    <Fragment>
-      <div className={s.page} ref={ref}>
+    <Fragment>{portfolio && !loading ?  (
+       <div className={s.page} ref={ref}>
         {/* ── Hero ── */}
         <header className={`${s.detailHero} gridBg scanline`}>
           <div className={s.detailTopBar} />
-          <div className={s.detailGlow} style={{ background:`radial-gradient(circle, ${project.color}08, transparent 70%)` }} />
+          <div className={s.detailGlow} style={{ background:`radial-gradient(circle, ${(portfolio as Project).color}08, transparent 70%)` }} />
           <div className={s.detailCorner} />
 
           <div className={s.innerMd}>
@@ -49,22 +72,22 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
               <span className={s.breadcrumbSep}>›</span>
               <Link href="/portfolio" className={s.breadcrumbLink}>PORTFOLIO</Link>
               <span className={s.breadcrumbSep}>›</span>
-              <span className={s.breadcrumbCurrent}>{project.title.toUpperCase().replace(/ /g,"_")}</span>
+              <span className={s.breadcrumbCurrent}>{(portfolio as Project).title.toUpperCase().replace(/ /g,"_")}</span>
             </nav>
 
             {/* Meta */}
             <div className={s.detailMetaRow}>
-              <span className={s.detailCat}>{project.category}</span>
+              <span className={s.detailCat}>{(portfolio as Project).category}</span>
               <span className={s.detailSep}>|</span>
-              <span className={s.detailYear}>{project.year}</span>
-              {project.featured && <span className={s.detailBadge}>FEATURED</span>}
+              <span className={s.detailYear}>{(portfolio as Project).year}</span>
+              {(portfolio as Project).featured && <span className={s.detailBadge}>FEATURED</span>}
             </div>
 
-            <h1 className={s.detailTitle}>{project.title.toUpperCase()}</h1>
-            <p className={s.detailDesc}>{project.longDescription}</p>
+            <h1 className={s.detailTitle}>{(portfolio as Project).title.toUpperCase()}</h1>
+            <p className={s.detailDesc}>{(portfolio as Project).longDescription}</p>
 
             <div className={s.detailTags}>
-              {project.tags.map(tag => <span key={tag} className={tagCls(project.tagColor)}>{tag}</span>)}
+              {(portfolio as Project).tags.map(tag => <span key={tag} className={tagCls((portfolio as Project).tagColor)}>{tag}</span>)}
             </div>
           </div>
         </header>
@@ -74,13 +97,13 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
           <div className={s.innerMd}>
 
             {/* Results */}
-            <section data-reveal>
+            <section>
               <div className={s.subLabel}>
                 <span className={s.subLabelText}>// RESULTS_LOG</span>
                 <div className={s.subLabelLine} />
               </div>
               <div className={s.metricsGrid}>
-                {project.impact.map((m, i) => (
+                {(portfolio as Project).impact.map((m, i) => (
                   <div key={m} className={s.metricBox}>
                     <div className={s.metricNum}
                       style={{ color: ACCENT_COLORS[i%4], textShadow:`0 0 10px ${ACCENT_COLORS[i%4]}60` }}>
@@ -93,34 +116,34 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
             </section>
 
             {/* Challenge / Solution */}
-            <section data-reveal>
+            <section>
               <div className={s.csGrid}>
                 <div className={s.csBox}>
                   <div className={s.csBoxTopLine}
                     style={{ background:"linear-gradient(to right, rgba(0,255,136,0.4), transparent)" }} />
                   <div className={s.csBoxLabel} style={{ color:"var(--neon)" }}>// THE_CHALLENGE</div>
-                  <p className={s.csBoxText}>{project.challenge}</p>
+                  <p className={s.csBoxText}>{(portfolio as Project).challenge}</p>
                 </div>
                 <div className={s.csBox}>
                   <div className={s.csBoxTopLine}
                     style={{ background:"linear-gradient(to right, rgba(170,255,0,0.4), transparent)" }} />
                   <div className={s.csBoxLabel} style={{ color:"var(--acid)" }}>// THE_SOLUTION</div>
-                  <p className={s.csBoxText}>{project.solution}</p>
+                  <p className={s.csBoxText}>{(portfolio as Project).solution}</p>
                 </div>
               </div>
             </section>
 
             {/* Screenshots */}
-            <section data-reveal>
+            <section>
               <div className={s.subLabel}>
                 <span className={`${s.subLabelText} ${s.subLabelTextCyan}`}>// SCREENSHOTS</span>
                 <div className={`${s.subLabelLine} ${s.subLabelLineCyan}`} />
               </div>
               <div className={s.screenshotsGrid}>
-                {(project.screenshots ?? []).map(n => (
-                  <div key={n} className={s.screenshotPlaceholder}>
+                {(portfolio as Project).screenshots?.map((n: any, _) => (
+                  <div key={_} className={s.screenshotPlaceholder}>
                     {/* <div className={s.screenshotLabel}>[SCREENSHOT_{n}]</div> */}
-                    <img src={n} alt={`${project.title} screenshot`} className={s.screenshotImg} />
+                    <img src={n.downloadURL} alt={`${(portfolio as Project).title} screenshot`} className={s.screenshotImg} />
                     {/* <div className={s.screenshotSubLabel}>Replace with actual screenshots</div> */}
                   </div>
                 ))}
@@ -128,7 +151,7 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
             </section>
 
             {/* CTA */}
-            <section data-reveal>
+            <section>
               <div className={s.ctaBox}>
                 <div className={s.ctaGlow} />
                 <p className={s.ctaNote}>// LIKE_WHAT_YOU_SEE?</p>
@@ -150,8 +173,8 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
               <Link href="/portfolio" className={s.moreViewAll}>VIEW_ALL →</Link>
             </div>
             <div className={s.moreGrid}>
-              {related.map(p => (
-                <Link key={p.id} href={`/portfolio/${p.slug}`} className={s.moreCard}>
+              {related?.map(p => (
+                <Link key={p.id} href={`/portfolio/portf?slug=${p.slug}`} className={s.moreCard}>
                   <div className={s.moreCardCat}>{p.category}</div>
                   <h4 className={s.moreCardTitle}>{p.title}</h4>
                   <p className={s.moreCardDesc}>{p.description}</p>
@@ -161,6 +184,8 @@ export default function PortfolioDetail({ params }: { params: Promise<{ slug: st
           </div>
         </div>
       </div>
-    </Fragment>
+    ) : <div  className={s.page} style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
+      <div className={cs.buttonLoading} />
+      </div>}</Fragment>
   );
 }

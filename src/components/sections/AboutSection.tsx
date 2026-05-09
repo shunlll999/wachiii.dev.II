@@ -5,12 +5,12 @@ import { TIMELINE } from "@/constants";
 import type { TagColor } from "@/types";
 import { tagClassName } from "@/utils";
 
-const skills = ["ReactJS","React Native","Flutter","Swift","Kotlin","C# Unity","NodeJS","TypeScript","Firebase","AWS"];
-const skillColors: TagColor[] = ["orange","orange","purple","green","orange","purple","green","orange","purple","green"];
+const skills = ["ReactJS","React Native","Flutter","Swift","Kotlin","C# Unity","NodeJS","TypeScript","Firebase","GCP", "Next.js", "GraphQL", "Docker", "CI/CD", "AWS"];
+const skillColors: TagColor[] = ["orange","orange","purple","green","orange","purple","green","orange","purple","green",];
 
 const statBoxes = [
   { num:"15+", label:"YEARS_EXPERIENCE",  color:"var(--neon)"  },
-  { num:"50+", label:"PROJECTS_SHIPPED",  color:"var(--cyan)"  },
+  { num:"30+", label:"PROJECTS_SHIPPED",  color:"var(--cyan)"  },
   { num:"6",   label:"TECH_STACKS",       color:"var(--acid)"  },
   { num:"3",   label:"PLATFORMS",         color:"var(--neon)"  },
 ];
@@ -18,6 +18,7 @@ const statBoxes = [
 function skillTagClass(color: TagColor) {
   if (color === "purple") return `${s.skillTag} ${s.skillTagCyan}`;
   if (color === "green")  return `${s.skillTag} ${s.skillTagAcid}`;
+  if (color === "orange")  return `${s.skillTag} ${s.skillTagOrange}`;
   return s.skillTag;
 }
 
@@ -56,7 +57,7 @@ export default function AboutSection() {
           </div>
 
           {/* Timeline */}
-          <div className={`${s.sectionReveal} ${s.timeline}`}>
+          <div className={`${s.timeline} sectionReveal`}>
           <h3 className={s.timelineTitle}>WORKING TIMELINE</h3>
           <div className={s.timelineDivider} />
           <div className={s.timelineList}>
@@ -80,7 +81,7 @@ export default function AboutSection() {
         </div>
 
         {/* Stats */}
-        <div className={s.statsGrid}>
+        <div className={`${s.statsGrid} sectionReveal`}>
             {statBoxes.map(st => (
               <div key={st.label} className={s.statBox}>
                 <div className={s.statBoxLine} style={{ background:`linear-gradient(90deg, ${st.color}60, transparent)` }} />

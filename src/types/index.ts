@@ -33,6 +33,7 @@ export interface Project {
   liveUrl?: string;
   repoUrl?: string;
   viewed?: number;
+  isMigrated?: boolean;
 }
 
 export interface Portfolio {

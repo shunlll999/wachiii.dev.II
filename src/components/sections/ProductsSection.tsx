@@ -32,7 +32,7 @@ export default function ProductsSection() {
         <p className={`${s.productDesc} sectionReveal`}>15 years distilled into templates and courses — the setup I wish I had earlier.</p>
 
         <div className={s.productGrid}>
-          {products.map(p => (
+          {/* {products.map(p => (
             <div key={p.title} className={`${s.productCard} sectionReveal`}>
               <div className={s.productTopLine} style={{ background:`linear-gradient(90deg, transparent, ${p.accentColor}60, transparent)` }} />
               <div className={s.productHeader}>
@@ -54,7 +54,10 @@ export default function ProductsSection() {
                 </button>
               </div>
             </div>
-          ))}
+          ))} */}
+          <div className={`${s.productCard} sectionReveal`}>
+              🚧 Under construction... Please check back later for real products!
+          </div>
         </div>
         <div className={`${s.guarantee} sectionReveal`}>
           <span>🔒</span>

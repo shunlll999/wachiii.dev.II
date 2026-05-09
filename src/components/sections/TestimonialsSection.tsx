@@ -28,7 +28,7 @@ export default function TestimonialsSection() {
           <span className={s.headingAcid}>FEEDBACK.EXE</span>
         </h2>
         <div className={s.testimonialGrid}>
-          {testimonials.map(t => (
+          {/* {testimonials.map(t => (
             <div key={t.name} className={`${s.testimonialCard} sectionReveal`}>
               <div className={s.testimonialTopLine} style={{ background:`linear-gradient(90deg, ${t.color}60, transparent)` }} />
               <div className={s.testimonialQuoteMark} style={{ color:t.color }}>&ldquo;</div>
@@ -43,7 +43,10 @@ export default function TestimonialsSection() {
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
+          <div className={`${s.testimonialCard} sectionReveal`}>
+             🚧 Under construction... Please check back later for real client testimonials!
+          </div>
         </div>
         <p className={`${s.testimonialNote} sectionReveal`}>* Replace with actual client testimonials</p>
       </div>

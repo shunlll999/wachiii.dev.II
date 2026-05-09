@@ -29,8 +29,8 @@ const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'repoUrl', type: 'string', required: false },
 ]
 
-const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfolio: Portfolio, tags?: Tag[], impacts: Impact[], medias: MediaMetadata[], onAddProject: (id:string ,project: Omit<Project, 'id'>) => void }) => {
-  const { product_info, ...rest } = portfolio;
+const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfolio: Portfolio | Project, tags?: Tag[], impacts: Impact[], medias: MediaMetadata[], onAddProject: (id:string ,project: Omit<Project, 'id'>) => void }) => {
+  const { ...rest } = portfolio;
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [mediasSelected, setMediaSelected] = useState<string[]>([]);
   const [tagsValue, setTagsValue] = useState<string[]>([]);
@@ -141,13 +141,6 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
             <div className={s.value}>{value.toString()}</div>
           </div>
         ))}
-        {product_info && <div className={`${s.title} ${s.info}`}>product_info</div>}
-        {product_info && Object.entries(product_info).map(([key, value]) => (
-          <div className={s['detail-section']} key={key}>
-            <label>{key}:</label>
-            <div className={s.value}>{value}</div>
-          </div>
-        ))}
       </div>}
       <h1>Migrated Detail</h1>
       <div className={`${s['detail-migrate']} ${s.formWrapper}`}>
@@ -158,7 +151,7 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
             <div className={s.formGroupView} key={name}>
               <div className={s.formGroupLabel}>
                 <div className={s.labelView}>{name}:</div>
-                {fieldInputMap[type](name, type === 'reference[]' ? ((portfolio as unknown as Record<string, string[]>)[name] ?? []) : String(portfolio[name as keyof Portfolio] ?? ''))}
+                {fieldInputMap[type](name, type === 'reference[]' ? ((portfolio as unknown as Record<string, MediaMetadata[]>)[name] ?? []) : String((portfolio as any)[name] ?? ''))}
               </div>
               {errors[name] && (
                 <span className={s.error}>

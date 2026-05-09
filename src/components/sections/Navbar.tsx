@@ -29,7 +29,7 @@ export default function Navbar() {
           {NAV_ITEMS.map(item => (
             <a key={item.label} href={item.href} className={s.navLink}>{item.label}</a>
           ))}
-          <a href="#contact" className={s.hireBtn}>HIRE ME</a>
+          <a href="/#contact" className={s.hireBtn}>HIRE ME</a>
         </div>
 
         <button className={s.mobileToggle} onClick={() => setOpen(!open)} aria-label="Menu">

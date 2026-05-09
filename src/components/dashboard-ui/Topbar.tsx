@@ -63,7 +63,7 @@ export const Topbar: React.FC<TopbarProps> = ({
         }}
       >
         {breadcrumb.map((item, i) => (
-          <React.Fragment key={item.label}>
+          <React.Fragment key={i}>
             {i > 0 && <span style={{ fontSize: 11 }}>/</span>}
             <span
               style={{

@@ -1,12 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import s from "@/styles/portfolio.module.css";
-import { projects } from "@/data/projects";
 import { filterProjectsByTag } from "@/utils";
-import type { TagColor } from "@/types";
+import type { Project, TagColor } from "@/types";
+import { useProducts } from "@/hooks/useProducts";
 
-const FILTERS = ["ALL", "React Native", "Flutter", "React", "Unity", "Next.js"];
+const FILTERS = ["ALL", "React Native", "React", "ActionScript", "Game",  "Unity", "Next.js"];
 
 function tagCls(c: TagColor) {
   if (c === "purple") return "techTag techTagCyan";
@@ -17,7 +17,11 @@ function tagCls(c: TagColor) {
 export default function PortfolioPage() {
   const [active, setActive] = useState("ALL");
   const ref = useRef<HTMLDivElement>(null);
-  const filtered = filterProjectsByTag(projects, active);
+  const { portfolios } = useProducts();
+
+  const displayProjects = useMemo(() => {
+    return filterProjectsByTag(portfolios ? portfolios.filter((p: Project) => p.isMigrated) : [], active);
+  }, [portfolios, active]);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -28,7 +32,7 @@ export default function PortfolioPage() {
     );
     cards.forEach(el => obs.observe(el));
     return () => obs.disconnect();
-  }, [filtered]);
+  }, [displayProjects]);
 
   return (
     <div>
@@ -48,7 +52,7 @@ export default function PortfolioPage() {
               <span className={s.listHeadingSnow}>ALL</span>
               <span className={s.listHeadingNeon}>PROJECTS</span>
             </h1>
-            <p className={s.listSubtitle}>{projects.length}_PROJECTS :: SHIPPED</p>
+            <p className={s.listSubtitle}>{displayProjects.length}_PROJECTS :: SHIPPED</p>
           </div>
         </header>
 
@@ -62,15 +66,15 @@ export default function PortfolioPage() {
                 {f}
               </button>
             ))}
-            <span className={s.filterCount}>[{filtered.length}_RESULTS]</span>
+            <span className={s.filterCount}>[{displayProjects.length}_RESULTS]</span>
           </div>
         </div>
 
         {/* Grid */}
         <div className={s.gridWrap}>
           <div className={s.grid} style={{ maxWidth:1152, margin:"0 auto" }}>
-            {filtered.map((p, i) => (
-              <Link key={p.id} href={`/portfolio/${p.slug}`}
+            {displayProjects.map((p, i) => (
+              <Link key={p.id} href={`/portfolio/portf?slug=${p.slug}`}
                 className={s.card} data-card style={{ transitionDelay:`${i*50}ms` }}>
                 <div className={s.cardTopLine} />
                 <div className={s.cardMeta}>

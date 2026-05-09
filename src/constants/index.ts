@@ -9,10 +9,10 @@ export const OG_IMAGE = "https://wachiii-dev0.web.app/images/logo/screenshot.png
 // Navigation
 // ─────────────────────────────────────────────
 export const NAV_ITEMS: NavItem[] = [
-  { label: "About",     href: "#about"     },
+  { label: "About",     href: "/about"     },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Products",  href: "#products"  },
-  { label: "Contact",   href: "#contact"   },
+  { label: "Products",  href: "/#products"  },
+  { label: "Contact",   href: "/#contact"   },
 ];
 
 // ─────────────────────────────────────────────
@@ -21,7 +21,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   { label: "LinkedIn",  href: "https://www.linkedin.com/in/wachara-nilsonti-b6529779/" },
   { label: "GitHub",    href: "https://github.com/shunlll999"                           },
-  { label: "Facebook",  href: "https://www.facebook.com/wachiii.livis"                 },
+  { label: "Facebook",  href: "https://www.facebook.com`/wachiii.livis"                 },
   { label: "Instagram", href: "https://www.instagram.com/shunlll999/"                  },
   { label: "TikTok",    href: "https://www.tiktok.com/@wachiii3"                       },
 ];

@@ -70,6 +70,8 @@
 .skillTagCyan:hover { background: rgba(0,229,255,0.12); border-color: rgba(0,229,255,0.6); }
 .skillTagAcid { border-color: rgba(170,255,0,0.25); color: var(--acid); background: rgba(170,255,0,0.05); }
 .skillTagAcid:hover { background: rgba(170,255,0,0.12); border-color: rgba(170,255,0,0.6); }
+.skillTagOrange { border-color: rgba(255,165,0,0.25); color: var(--orange); background: rgba(255,165,0,0.05); }
+.skillTagOrange:hover { background: rgba(255,165,0,0.12); border-color: rgba(255,165,0,0.6); }
 
 .statsGrid {
   display: grid;
@@ -179,6 +181,18 @@
 /* ──────────────────────────────────────────────────────
    Portfolio Section (homepage)
    ────────────────────────────────────────────────────── */
+
+.sectionReveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--transition-reveal), transform var(--transition-reveal);
+}
+.sectionReveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 .portfolioHeader {
   display: flex;
   flex-direction: column;
@@ -393,6 +407,23 @@
   transition: border-color var(--transition-base);
   letter-spacing: 0.05em;
 }
+
+.fieldSelect {
+  -webkit-appearance: none;  /* สำหรับ Chrome, Safari, Edge */
+  -moz-appearance: none;     /* สำหรับ Firefox */
+  appearance: none;          /* มาตรฐาน */
+
+  /* สำคัญมาก: เมื่อลบลูกศรแล้ว ต้องตั้งค่า padding-right
+     เผื่อพื้นที่ไว้ให้ไอคอนใหม่ที่เราจะใส่เข้าไปเองด้วย */
+  padding-right: 30px;
+
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  /* จัดตำแหน่งไอคอน: ขวา 10px, กึ่งกลางแนวตั้ง */
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
 .fieldInput::placeholder, .fieldTextarea::placeholder { color: rgba(61,90,71,0.3); }
 .fieldInput:focus, .fieldSelect:focus, .fieldTextarea:focus { border-color: rgba(0,255,136,0.5); }
 .fieldTextarea { resize: none; }
@@ -413,6 +444,8 @@
   margin-top: 8px;
 }
 .submitBtn:hover { background: var(--neon-bright); }
+
+.submitBtn:disabled { background: #67676780; cursor: not-allowed; box-shadow: none; }
 
 .successBox {
   padding: 40px;

@@ -6,6 +6,7 @@ import ProductsSection from "@/components/sections/ProductsSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/sections/Footer";
+import PortfolioSectionView from "./PortfolioSectionView";
 
 export const metadata: Metadata = {
   title: "wAcii — Senior Software Engineer",
@@ -26,7 +27,7 @@ export default function Home() {
     <>
       <HeroSection />
       <AboutSection />
-      <PortfolioSection />
+      <PortfolioSectionView />
       <ProductsSection />
       <TestimonialsSection />
       <ContactSection />

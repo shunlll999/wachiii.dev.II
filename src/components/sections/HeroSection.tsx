@@ -5,7 +5,7 @@ import s from "@/styles/HeroSection.module.css";
 const roles = ["SENIOR_SOFTWARE_ENGINEER","REACT_NATIVE_SPECIALIST","FLUTTER_&_MOBILE_DEV","FULL_STACK_ARCHITECT"];
 const stats = [
   { num:"15+", label:"YRS_EXPERIENCE",  color:"var(--neon)"  },
-  { num:"50+", label:"PROJECTS_SHIPPED", color:"var(--cyan)"  },
+  { num:"30+", label:"PROJECTS_SHIPPED", color:"var(--cyan)"  },
   { num:"6",   label:"TECH_STACKS",      color:"var(--acid)"  },
   { num:"∞",   label:"COFFEE_CONSUMED",  color:"var(--neon)"  },
 ];

@@ -40,8 +40,8 @@ const Dropdown = ({ medias,  onChange, defaultValue }: { medias: MediaMetadata[]
   return <div className={s.listContainer}>
     <div className={s.display} onClick={onHandleShowList}>
       {mediaSelected?.map((media, _) => (
-        <div className={s.mediaView}>
-          <img key={_} className={s.itemDisplay} src={media.downloadURL} alt={media.name} />
+        <div key={_} className={s.mediaView}>
+          <img className={s.itemDisplay} src={media.downloadURL} alt={media.name} />
           <button
               type="button"
               onClick={() => removeImage(_)}
