@@ -18,6 +18,10 @@ export default function ContactSection() {
     const err = validateContactForm(form);
     if (err) { setForm(f => ({ ...f, error: err })); return; }
     setForm(f => ({ ...f, submitted: true, error: null }));
+
+
+    console.log("Contact form submitted:", form);
+
   };
 
   return (

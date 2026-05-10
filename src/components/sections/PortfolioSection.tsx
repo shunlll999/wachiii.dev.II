@@ -37,8 +37,7 @@ export default function PortfolioSection({ featuredProjects }: { featuredProject
           <Link href="/portfolio" className={s.viewAllBtn}>VIEW_ALL →</Link>
         </div>
 
-        <div className={s.projectGrid}>
-          <div className={`sectionReveal`}>
+        <div className={`${s.projectGrid} sectionReveal`}>
             {featured.map(p => (
               <Link key={p.id} href={`/portfolio/portf?slug=${p.slug}`} className={s.projectCard}>
                 <div className={s.projectCardTopLine} />
@@ -57,7 +56,7 @@ export default function PortfolioSection({ featuredProjects }: { featuredProject
                 </div>
               </Link>
             ))}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </section>

@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MetaDataTag />
       </head>
       <body className="noise">
-        <DemoBadge />
+        {/* <DemoBadge /> */}
         <CustomCursor />
         <EasterEggProfile />
         <Navbar />

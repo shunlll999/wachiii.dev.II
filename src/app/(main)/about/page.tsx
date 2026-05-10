@@ -21,6 +21,7 @@ const Page = () => {
             <p className={s.listSubtitle}>
               Under construction... Please check back later for the full portfolio and client testimonials sections!
             </p>
+            <iframe src='/projects/html5Game/2014/game/' width="690px" height="380px" style={{ margin: '0 0' }}></iframe>
           </div>
         </header>
     </div>

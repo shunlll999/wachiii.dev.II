@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "dog_jump0000",
+	"frame": {"x":0,"y":0,"w":121,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":121,"h":73},
+	"sourceSize": {"w":121,"h":73}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "dogAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:06953c7d28506d7de914868db71f6744:c52a234a1746c8c24c2a0c5261cf8d6c:6d259f85d6f70158dcba0babe025e65b$"
+}
+}
