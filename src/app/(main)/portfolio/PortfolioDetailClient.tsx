@@ -29,7 +29,6 @@ export default function PortfolioDetail() {
     if (slug) {
       setLoading(true);
       getPortfolioBySlug(slug).finally(() => {
-        console.log("portfolio::> loaded");
         setTimeout(() => {
           if (ref.current) ref.current.scrollIntoView({ behavior: "smooth" });
           setLoading(false)
@@ -55,6 +54,8 @@ export default function PortfolioDetail() {
   //   ref.current.querySelectorAll("[data-reveal]").forEach(el => obs.observe(el));
   //   return () => obs.disconnect();
   // }, []);
+
+  console.log("rendering portfolio detail for slug:", slug, "loading:", loading, "portfolio:", portfolio);
 
   return (
     <Fragment>{portfolio && !loading ?  (
@@ -89,6 +90,13 @@ export default function PortfolioDetail() {
             <div className={s.detailTags}>
               {(portfolio as Project).tags.map(tag => <span key={tag} className={tagCls((portfolio as Project).tagColor)}>{tag}</span>)}
             </div>
+            {(portfolio as Project).liveUrl && (
+              <div className={`${s.detailTags} ${s.space}`}>
+                Watch the project:
+                <Link href={(portfolio as Project).liveUrl || "#"} target="_blank" className={tagCls((portfolio as Project).tagColor)}> Live URL</Link>
+              </div>
+            )}
+
           </div>
         </header>
 

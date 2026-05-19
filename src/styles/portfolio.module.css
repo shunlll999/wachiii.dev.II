@@ -319,6 +319,10 @@
 }
 .detailTags { display: flex; flex-wrap: wrap; gap: 8px; }
 
+.space {
+  margin: 1rem 0;
+}
+
 /* ══════════════════════════════════════════
    Detail — content sections
    ══════════════════════════════════════════ */
