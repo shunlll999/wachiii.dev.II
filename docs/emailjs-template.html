@@ -1,0 +1,58 @@
+<!--
+  EmailJS template — wachiii.dev contact form
+  Dashboard: Email Templates → (your template) → Edit Content → "Code Editor" → paste this file.
+  Settings tab:  To Email = rafael5715@gmail.com
+                 Reply To = {{reply_to}}
+                 Subject  = New message from {{from_name}} — wachiii.dev
+  Variables sent by ContactSection.tsx: from_name, from_email, reply_to, budget, message, sent_at
+-->
+<div style="margin:0;padding:32px 16px;background:#0b1220;font-family:'IBM Plex Sans Thai',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <table role="presentation" align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#0e1626;border:1px solid #253248;border-radius:6px;">
+    <tr>
+      <td style="height:2px;background:#8fb0d9;font-size:0;line-height:0;">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding:32px 32px 8px;">
+        <div style="font-size:11px;letter-spacing:0.2em;color:#8fb0d9;">// NEW_MESSAGE</div>
+        <h1 style="margin:12px 0 4px;font-family:'Source Serif 4',Georgia,'Times New Roman',serif;font-weight:600;font-size:26px;line-height:1.25;color:#f1f5f9;">
+          {{from_name}} sent you a message
+        </h1>
+        <div style="font-size:12px;color:#64748b;">{{sent_at}} (Asia/Bangkok)</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:16px 32px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #253248;">
+          <tr>
+            <td style="padding:14px 0;width:130px;font-size:11px;letter-spacing:0.15em;color:#64748b;vertical-align:top;border-bottom:1px solid #253248;">NAME</td>
+            <td style="padding:14px 0;font-size:15px;color:#f1f5f9;border-bottom:1px solid #253248;">{{from_name}}</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 0;font-size:11px;letter-spacing:0.15em;color:#64748b;vertical-align:top;border-bottom:1px solid #253248;">EMAIL</td>
+            <td style="padding:14px 0;font-size:15px;border-bottom:1px solid #253248;"><a href="mailto:{{from_email}}" style="color:#8fb0d9;text-decoration:none;">{{from_email}}</a></td>
+          </tr>
+          <tr>
+            <td style="padding:14px 0;font-size:11px;letter-spacing:0.15em;color:#64748b;vertical-align:top;border-bottom:1px solid #253248;">BUDGET</td>
+            <td style="padding:14px 0;font-size:15px;color:#f1f5f9;border-bottom:1px solid #253248;">{{budget}}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:24px 32px 8px;">
+        <div style="font-size:11px;letter-spacing:0.15em;color:#64748b;margin-bottom:10px;">MESSAGE</div>
+        <div style="padding:18px 20px;background:#121c2e;border:1px solid #253248;border-radius:4px;font-size:15px;line-height:1.75;color:#cbd5e1;white-space:pre-wrap;">{{message}}</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:24px 32px 32px;">
+        <a href="mailto:{{from_email}}?subject=Re:%20Your%20message%20to%20wachiii.dev" style="display:inline-block;padding:12px 26px;background:#8fb0d9;color:#0b1220;font-size:13px;font-weight:600;letter-spacing:0.1em;text-decoration:none;border-radius:3px;">REPLY →</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:16px 32px;border-top:1px solid #253248;font-size:11px;color:#64748b;">
+        Sent from the contact form at wachiii.dev
+      </td>
+    </tr>
+  </table>
+</div>

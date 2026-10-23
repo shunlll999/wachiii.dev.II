@@ -1,0 +1,93 @@
+.page { min-height: 100vh; background: var(--void); }
+.inner { max-width: 1152px; margin: 0 auto; padding: 96px 24px 80px; }
+
+.backLink {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.15em;
+  color: var(--silver); margin-bottom: 40px;
+  transition: color var(--transition-base);
+}
+.backLink:hover { color: var(--neon); }
+
+.labelRow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.labelText { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--neon); white-space: nowrap; }
+.labelLine { flex: 1; height: 1px; background: var(--border); }
+
+/* ── Hero ── */
+.hero { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; padding-bottom: 64px; }
+@media (min-width: 900px) { .hero { grid-template-columns: 280px 1fr; gap: 64px; } }
+
+.avatarWrap {
+  width: 220px; aspect-ratio: 1; overflow: hidden;
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  background: var(--mist);
+}
+@media (min-width: 900px) { .avatarWrap { width: 100%; } }
+.avatar { width: 100%; height: 100%; object-fit: cover; }
+
+.name { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 5vw, 52px); line-height: 1.1; color: var(--snow); margin-bottom: 8px; }
+.role { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.1em; color: var(--neon); margin-bottom: 24px; }
+.bio { font-size: 16px; line-height: 1.8; color: var(--pearl); max-width: 640px; }
+.bio + .bio { margin-top: 14px; }
+.bio strong { color: var(--snow); font-weight: 600; }
+
+.contactRow { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 28px; font-family: var(--font-mono); font-size: 13px; color: var(--silver); }
+.contactRow a:hover { color: var(--neon); }
+
+/* ── Stats ── */
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 72px; }
+@media (min-width: 720px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: var(--ink); padding: 24px; }
+.statNum { font-family: var(--font-display); font-weight: 600; font-size: 32px; color: var(--snow); }
+.statLabel { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; color: var(--ash); margin-top: 4px; }
+
+/* ── Content grid ── */
+.grid { display: grid; grid-template-columns: 1fr; gap: 56px; margin-bottom: 64px; }
+@media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; gap: 72px; } }
+
+.h2 { font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--snow); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+.skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill { padding: 5px 12px; border: 1px solid var(--border-input); border-radius: var(--radius-sm); background: var(--input-background); font-family: var(--font-mono); font-size: 12px; color: var(--pearl); }
+
+.block { margin-bottom: 64px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btnPrimary, .btnGhost { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; transition: all var(--transition-base); }
+.btnPrimary { background: var(--neon); color: var(--void); border: 1px solid var(--neon); font-weight: 600; }
+.btnPrimary:hover { background: var(--neon-bright); border-color: var(--neon-bright); }
+.btnGhost { color: var(--pearl); border: 1px solid var(--border-input); }
+.btnGhost:hover { border-color: var(--neon); color: var(--neon); }
+
+.skillList { display: grid; gap: 20px; }
+.skillRow { display: grid; grid-template-columns: 1fr; gap: 8px; }
+@media (min-width: 720px) { .skillRow { grid-template-columns: 220px 1fr; gap: 24px; } }
+.skillLabel { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--silver); padding-top: 6px; }
+
+.workGrid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .workGrid { grid-template-columns: 1fr 1fr; } }
+.workCard { display: block; padding: 20px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--ink); transition: border-color var(--transition-base); }
+.workCard:hover { border-color: var(--neon); }
+.workName { font-weight: 600; color: var(--snow); font-size: 16px; }
+.workUrl { font-family: var(--font-mono); font-size: 12px; color: var(--neon); margin: 2px 0 10px; }
+.workDesc { font-size: 14px; line-height: 1.7; color: var(--silver); }
+
+.timeline { list-style: none; border-left: 1px solid var(--border); margin-left: 4px; }
+.timelineItem { position: relative; padding: 0 0 32px 24px; }
+.timelineItem::before { content: ''; position: absolute; left: -5px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--smoke); border: 1px solid var(--ash); }
+.timelineCurrent::before { background: var(--neon); border-color: var(--neon); }
+.timelineHead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.timelineRole { font-weight: 600; color: var(--snow); font-size: 16px; }
+.timelineYear { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ash); }
+.timelineCompany { font-size: 14px; color: var(--neon); margin-bottom: 10px; }
+.points { margin-left: 18px; font-size: 14px; line-height: 1.7; color: var(--pearl); }
+.points li + li { margin-top: 6px; }
+.eduItem { margin-bottom: 20px; }
+
+/* ── Social + game ── */
+.social { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 72px; }
+.socialLink { padding: 8px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--pearl); transition: all var(--transition-base); }
+.socialLink:hover { border-color: var(--neon); color: var(--neon); }
+
+.gameNote { font-size: 14px; color: var(--silver); margin-bottom: 20px; max-width: 640px; }
+.frameWrap { max-width: 690px; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--mist); }
+.frame { display: block; width: 100%; aspect-ratio: 690 / 380; border: 0; }

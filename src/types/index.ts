@@ -29,6 +29,7 @@ export interface Project {
   color: ThemeColor;
   gradient: string;
   featured: boolean;
+  showInProducts?: boolean;
   screenshots?: string[];
   liveUrl?: string;
   repoUrl?: string;

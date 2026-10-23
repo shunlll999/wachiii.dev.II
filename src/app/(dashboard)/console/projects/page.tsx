@@ -1,7 +1,7 @@
-const ProjectPage = () => {
-  return (
-    <div>ProjectPage</div>
-  )
-}
+import PortfolioCollection from "../portfolio/PortfolioCollection";
 
-export default ProjectPage
+const ProjectPage = () => {
+  return <PortfolioCollection />;
+};
+
+export default ProjectPage;

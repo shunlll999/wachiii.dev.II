@@ -25,6 +25,7 @@ const formTemplate: { name: string; type: FieldType; required: boolean }[] = [
   { name: 'color', type: 'string', required: true },
   { name: 'gradient', type: 'string', required: true },
   { name: 'featured', type: 'boolean', required: true },
+  { name: 'showInProducts', type: 'boolean', required: false },
   { name: 'liveUrl', type: 'string', required: false },
   { name: 'repoUrl', type: 'string', required: false },
 ]
@@ -118,6 +119,7 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
         color:           getValue('color') as Project['color'],
         gradient:        getValue('gradient'),
         featured:        (form.elements.namedItem('featured') as HTMLInputElement).checked,
+        showInProducts:  (form.elements.namedItem('showInProducts') as HTMLInputElement).checked,
         screenshots:     mediasSelected,
         liveUrl:         getValue('liveUrl') || undefined,
         repoUrl:         getValue('repoUrl') || undefined,
@@ -165,7 +167,7 @@ const PortfolioDetail = ({ portfolio, impacts, medias, onAddProject }: { portfol
             {
             loading ? <div className={s.buttonLoading} /> :
             <button type="submit" >
-              Update
+              {portfolio.id ? 'Update' : 'Create'}
             </button>}
           </div>
         </form>

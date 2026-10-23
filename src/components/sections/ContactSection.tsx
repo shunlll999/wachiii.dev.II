@@ -3,9 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import s from "@/styles/sections.module.css";
 import { validateContactForm } from "@/utils";
 import type { ContactFormState } from "@/types";
+import emailjs from "@emailjs/browser";
+
+const BUDGET_LABELS: Record<string, string> = {
+  "under-50k": "Under ฿50,000",
+  "50k-150k": "฿50,000 – ฿150,000",
+  "150k-plus": "฿150,000+",
+  ongoing: "Ongoing retainer",
+};
 
 export default function ContactSection() {
   const ref = useRef<HTMLDivElement>(null);
+  const [sending, setSending] = useState(false);
   const [form, setForm] = useState<ContactFormState>({ name:"", email:"", budget:"", message:"", submitted:false, error:null });
   useEffect(() => {
     const obs = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("visible", e.isIntersecting)), { threshold: 0.1 });
@@ -13,15 +22,32 @@ export default function ContactSection() {
     return () => obs.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending) return;
     const err = validateContactForm(form);
     if (err) { setForm(f => ({ ...f, error: err })); return; }
-    setForm(f => ({ ...f, submitted: true, error: null }));
-
-
-    console.log("Contact form submitted:", form);
-
+    setSending(true);
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          reply_to: form.email,
+          budget: BUDGET_LABELS[form.budget] ?? "Not specified",
+          message: form.message,
+          sent_at: new Date().toLocaleString("en-GB", { timeZone: "Asia/Bangkok" }),
+        },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string },
+      );
+      setForm(f => ({ ...f, submitted: true, error: null }));
+    } catch {
+      setForm(f => ({ ...f, error: "ส่งไม่สำเร็จ — กรุณาลองใหม่ หรืออีเมลมาที่ rafael5715@gmail.com" }));
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -90,7 +116,7 @@ export default function ContactSection() {
                       value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} required />
                   </div>
                   {form.error && <p style={{ fontFamily:"var(--font-mono)", fontSize:12, color:"var(--magenta)" }}>{form.error}</p>}
-                  <button type="submit" className={s.submitBtn} disabled>TRANSMIT_MESSAGE →</button>
+                  <button type="submit" className={s.submitBtn} disabled={sending}>{sending ? "TRANSMITTING..." : "TRANSMIT_MESSAGE →"}</button>
                 </div>
               </form>
             )}

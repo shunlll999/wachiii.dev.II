@@ -47,7 +47,7 @@ const filtered = useMemo(() => {
   return (
     <div>
       <div className={ds.toolbar}>
-        <button className={ds.createButton} onClick={() => console.log("create")}>+ Create</button>
+        <button className={ds.createButton} onClick={() => router.push('/console/portfolio/detail?pid=new')}>+ Create</button>
       </div>
       <table className={s.tableWraper}>
         <thead className={s.tableHeader}>

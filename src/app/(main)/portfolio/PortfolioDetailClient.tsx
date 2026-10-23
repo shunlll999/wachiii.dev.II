@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import type { Project, TagColor } from "@/types";
 import { useProducts } from "@/hooks/useProducts";
 
-const ACCENT_COLORS = ["#00ff88","#00e5ff","#aaff00","#00ff88"];
+const ACCENT_COLORS = ["#8fb0d9","#00e5ff","#c9a86a","#8fb0d9"];
 
 function tagCls(c: TagColor) {
   if (c === "purple") return "techTag techTagCyan";
@@ -128,13 +128,13 @@ export default function PortfolioDetail() {
               <div className={s.csGrid}>
                 <div className={s.csBox}>
                   <div className={s.csBoxTopLine}
-                    style={{ background:"linear-gradient(to right, rgba(0,255,136,0.4), transparent)" }} />
+                    style={{ background:"linear-gradient(to right, rgba(143,176,217,0.4), transparent)" }} />
                   <div className={s.csBoxLabel} style={{ color:"var(--neon)" }}>// THE_CHALLENGE</div>
                   <p className={s.csBoxText}>{(portfolio as Project).challenge}</p>
                 </div>
                 <div className={s.csBox}>
                   <div className={s.csBoxTopLine}
-                    style={{ background:"linear-gradient(to right, rgba(170,255,0,0.4), transparent)" }} />
+                    style={{ background:"linear-gradient(to right, rgba(201,168,106,0.4), transparent)" }} />
                   <div className={s.csBoxLabel} style={{ color:"var(--acid)" }}>// THE_SOLUTION</div>
                   <p className={s.csBoxText}>{(portfolio as Project).solution}</p>
                 </div>

@@ -51,9 +51,9 @@
 .inputTag {
 
   --border-color: rgba(208, 208, 208, 0.3);
-  --border:    #1a2535;
+  --border:    #253248;
   --radius-sm: 6px;
-  --input-background: rgba(0, 195, 255, 0.079);
+  --input-background: rgba(143,176,217, 0.079);
    --snow:      #033d12;
 
   display: flex;

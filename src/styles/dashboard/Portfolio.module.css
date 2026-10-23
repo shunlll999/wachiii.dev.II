@@ -127,9 +127,9 @@
 
  .detail-migrate {
   --border-color: rgba(208, 208, 208, 0.3);
-  --border:    #1a2535;
+  --border:    #253248;
   --radius-sm: 6px;
-  --input-background: rgba(0, 195, 255, 0.079);
+  --input-background: rgba(143,176,217, 0.079);
    --snow:      #033d12;
 
   background-color: rgba(208, 208, 208, 0.2);
@@ -303,11 +303,10 @@
 }
 
 .impactTop {
-  --font-display: 'Orbitron', sans-serif;
-  color: rgb(0, 255, 136);
-  text-shadow: rgba(0, 255, 136, 0.376) 0px 0px 10px;
+  --font-display: 'Source Serif 4', serif;
+  color: #8fb0d9;
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 600;
   font-size: 22px;
   margin-bottom: 4px;
 }
@@ -315,7 +314,7 @@
 .impactBottom {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: #6b9e7a;
+  color: #94a3b8;
   padding: 2px 8px;
   border-radius: var(--radius-full);
 }
