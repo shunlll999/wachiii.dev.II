@@ -91,3 +91,15 @@
 .gameNote { font-size: 14px; color: var(--silver); margin-bottom: 20px; max-width: 640px; }
 .frameWrap { max-width: 690px; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--mist); }
 .frame { display: block; width: 100%; aspect-ratio: 690 / 380; border: 0; }
+
+/* VOID GP — mobile only */
+.mobileGame { display: none; margin-bottom: 56px; }
+@media (max-width: 719px) { .mobileGame { display: block; } }
+.gameOverlay { position: fixed; inset: 0; z-index: 1000; background: #000; }
+.gameCanvas { display: block; width: 100%; height: 100%; border: 0; }
+.gameClose {
+  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 12px;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6); color: var(--snow); border: 1px solid var(--border-input);
+  font-size: 18px; line-height: 1; display: flex; align-items: center; justify-content: center;
+}

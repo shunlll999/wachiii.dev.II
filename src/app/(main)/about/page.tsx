@@ -1,5 +1,6 @@
 import s from "@/styles/about.module.css";
 import Link from "next/link";
+import MobileGame from "@/components/about/MobileGame";
 import { ASSETS, HIDDEN_PROFILE, SOCIAL_LINKS } from "@/constants";
 
 const CV_URL = "/cv/Wachara_Nilsonti_CV_2026.pdf";
@@ -173,6 +174,9 @@ const Page = () => {
             <a key={l.label} className={s.socialLink} href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
           ))}
         </div>
+
+        {/* VOID GP (mobile only) */}
+        <MobileGame />
 
         {/* Game iframe (kept) */}
         <h2 className={s.h2}>Play: HTML5 Game (2014)</h2>
